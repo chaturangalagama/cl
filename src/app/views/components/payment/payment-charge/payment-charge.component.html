@@ -1,0 +1,37 @@
+<!-- <app-payment-patient-info class="fixed-div-payment" [patientInfoFormGroup]="chargeFormGroup.get('patientInfoFormGroup')">
+</app-payment-patient-info> -->
+<div class="fixed-div-consultation-add" style="margin-top:-5px">
+    <app-consultation-patient-info [hideAlerts]=true *ngxPermissionsOnly="['ROLE_PATIENT_MEDICAL_ALERTS']"></app-consultation-patient-info>
+</div>
+<div class="pt-lg-offset" style="padding-top:10rem;">
+    <alert></alert>
+    <app-clinic-notes [clinicNotes]="chargeFormGroup.get('clinicNoteFormGroup').get('clinicNotes')" [isExpanded]=true *ngIf="chargeFormGroup.get('clinicNoteFormGroup').get('clinicNotes').value"></app-clinic-notes>
+    <app-payment-coverage-limit [coverageLimitFormGroup]="chargeFormGroup.get('coverageLimitFormGroup')">
+    </app-payment-coverage-limit>
+    <app-payment-diagnosis [diagnosisFormGroup]="chargeFormGroup.get('diagnosisFormGroup')">
+    </app-payment-diagnosis>
+    <app-payment-medical-service [medicalServiceFormGroup]="chargeFormGroup.get('medicalServiceFormGroup')">
+    </app-payment-medical-service>
+    <app-payment-prescription [prescriptionFormGroup]="chargeFormGroup.get('prescriptionFormGroup')" [errors]='drugErrors'>
+    </app-payment-prescription>
+    <app-payment-medical-test [medicalTestFormGroup]="chargeFormGroup.get('medicalTestFormGroup')">
+    </app-payment-medical-test>
+    <app-payment-immunization [immunizationFormGroup]="chargeFormGroup.get('immunizationFormGroup')">
+    </app-payment-immunization>
+    <app-payment-referral [referralFormGroup]="chargeFormGroup.get('referralFormGroup')" [itemsFormArray]="chargeFormGroup.get('referralFormGroup').get('referralFormArray')"></app-payment-referral>
+
+    <!-- <app-payment-referral [referralFormGroup]="chargeFormGroup.get('printFormGroup')" [itemsFormArray]="chargeFormGroup.get('printFormGroup').get('referralArray')"></app-payment-referral> -->
+    <app-payment-follow-up [followUpFormGroup]="chargeFormGroup.get('prescriptionFormGroup').get('followUpFormGroup')"></app-payment-follow-up>
+    <app-payment-overall-charge [overallChargeFormGroup]="chargeFormGroup.get('overallChargeFormGroup')">
+    </app-payment-overall-charge>
+    <app-payment-print [chargeFormGroup]="chargeFormGroup" [patientInfo]="patientInfo" [consultationInfo]="consultationInfo">
+    </app-payment-print>
+    <div class="btn-toolbar float-right" role="toolbar">
+        <div class="btn-group" role="group">
+            <button class="btn btn-large btn-pink" [disabled]="!chargeFormGroup.valid" (click)="onBtnSaveClicked()" (keyup)="onKeyUp($event)">SAVE & NEXT (F4)</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</div>

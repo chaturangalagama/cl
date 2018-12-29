@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        DIAGNOSIS / PRESCRIPTION & CHARGES
+    </div>
+    <div class="card-body">
+        <div class="row mb-0">
+            <!-- TITLE -->
+            <div class="col-md-3">
+                <label class="mb-0">ICD-10</label>
+            </div>
+            <div class="col-md-9">
+                <label class="mb-0">Description</label>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <form *ngFor="let form of diagnosisFormGroup.get('diagnosisArray')['controls']; let i = index;" [formGroup]="form" novalidate>
+            <div class="row pt-2">
+                <div class="col-md-3">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-width" [items]="form.value.icds.value" bindLabel="label" bindValue="value" [virtualScroll]="true" placeholder="Select ICD-10" formControlName="icd">
+                    </ng-select>
+                </div>
+                <div class="col-md-9">
+                    <input class="form-control form-control-sm" type="text" formControlName="description" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="card mb-0">
+  <div class="card-header d-flex justify-content-between">
+    <span class='font-weight-semi-bold'>DIAGNOSIS/PRESCRIPTION</span>
+    <!-- <button class="btn btn-sm btn-outline-pink align-self-center" (click)="onBtnAddClicked()">+</button> -->
+  </div>
+  <div class="card-body">
+    <div class="row mb-0">
+      <!-- TITLE -->
+      <div class="col-md-3">
+        <label class="mb-0">Code</label>
+        <font color="red">*</font>
+      </div>
+      <div class="col-md-9">
+        <label class="mb-0">Description</label>
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="row" *ngFor="let item of diagnosisIds.controls; let i = index;">
+      <app-consultation-diagnosis-item class="col-md mb-2" [itemGroup]="item" [index]=i (onDelete)="onBtnDeleteClicked($event)"></app-consultation-diagnosis-item>
+
+    </div>
+    <button class="btn btn-sm btn-outline-pink float-right" (click)="onBtnAddClicked()">+ Add</button>
+    <!-- <code>{{diagnosisIds.value|json}}</code> -->
+  </div>

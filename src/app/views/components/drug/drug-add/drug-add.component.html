@@ -1,0 +1,67 @@
+<div class="container mt-2">
+    <h1>Add Drug</h1>
+    <alert></alert>
+    <div class="row">
+        <div class="col-9">
+            <form #addDrugForm="ngForm" (ngSubmit)="onAddDrugSubmit()">
+                <!-- DRUG CODE -->
+                <div class="row ">
+                    <div class="form-group mb-0 col">
+                        <label>Code</label>
+                        <input class="form-control form-control-sm" [(ngModel)]="drugCode" name="drugCode" type="text" placeholder="Drug Code" />
+                    </div>
+                </div>
+
+                <!-- DRUG NAME -->
+                <div class="row ">
+                    <div class="form-group mb-0 col">
+                        <label>Name</label>
+                        <input class="form-control form-control-sm" [(ngModel)]="drugName" name="drugName" type="text" placeholder="Drug Name" />
+                    </div>
+                </div>
+
+                <!-- UOM -->
+                <div class="row ">
+                    <div class="form-group mb-0 col">
+                        <label>UOM</label>
+                        <input class="form-control form-control-sm" [(ngModel)]="uom" name="uom" type="text" placeholder="Unit Of Measurement" />
+                    </div>
+                </div>
+
+                <!-- PRICE -->
+                <div class="row ">
+                    <div class="form-group mb-0 col">
+                        <label>Price</label>
+                        <input class="form-control form-control-sm" [(ngModel)]="price" name="price" type="number" placeholder="Price" />
+                    </div>
+                </div>
+
+                <!-- CHARGE CODE -->
+                <div class="row ">
+                    <div class="form-group col">
+                        <label>Charge Code</label>
+                        <input class="form-control form-control-sm" [(ngModel)]="chargeCode" name="chargeCode" type="text" placeholder="Drug Name"
+                        />
+                    </div>
+                </div>
+
+                <!-- TAX -->
+                <div class="row">
+                    <div class="form-group col">
+                        <input [(ngModel)]="taxIncluded" type="checkbox" [checked]="taxIncluded" name="taxIncluded" /> Include Tax
+                    </div>
+                </div>
+
+
+                <!-- SUBMIT BUTTON -->
+                <div class="row">
+                    <div class="form-group col-6">
+                        <Button type="submit">Submit</Button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

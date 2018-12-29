@@ -1,0 +1,347 @@
+body {
+	font-size: 16px;
+	background: #f4f4f4;
+}
+
+.btn-red{
+	background: #e64a79;
+}
+.btn-blue{
+	background: #423f73;
+}
+.btn-ash{
+	background: #9b9b9b;
+}
+/*Nav bar*/
+
+nav {
+    box-shadow: 0px 0px 13px #f4f4f4;//#33333363
+    margin-bottom: 20px;
+
+    .container-fluid > .row {
+    	background: #fff;
+		box-shadow: 0px 0px 13px #33333329;
+		height: 52px;
+    }
+}
+.back-btn {
+	background: #f5f7fa;
+	color: #333;
+	padding: 7px 10px 7px 0;
+	border: 1px solid #88888861;
+	text-decoration: none !important;
+	display: block;
+	margin-top: 8px;
+	// width: 55%;
+	font-size: 13px;
+	text-align: center;
+
+	i {
+		padding-right: 5px;
+	}
+	:hover {
+		background: #ddd;
+	}
+}
+.parameter {
+	font-size: 13px;
+
+	label {
+		color: #a4b7c1;
+		margin-bottom: 0;
+		margin-top: 7px;
+	}
+	p {
+		margin-bottom: 0;		
+	}
+}
+.total-due-green {
+	background: #15a080;
+}
+.total-due-red {
+	background: #ef899ae8;
+}
+.total-due {
+	// background: #15a080;
+	color: #fff;
+	padding: 10px 15px;
+    width: 200px;
+    margin-left: auto;
+    text-align: center;
+    height: 100%;
+    font-size: 15px;
+
+    label {
+		margin-top: 5px;
+		color: #fff;
+    }
+
+	span {
+		padding-left: 10px;
+		margin-top: 7px;
+	}
+}
+
+.content-wraper {
+	background: #f4f4f4;
+}
+/************************************/
+/* Common styles ********************/
+/************************************/
+
+.btn {
+	color: #fff !important;
+	border-radius: 0;
+}
+input, select {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 5px 0px;
+	outline: none;
+}
+.section-title {
+	color: #333;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	margin: 0;
+    line-height: 38px;
+	display: inline-block;
+}
+
+/*Default pannel*/
+.default-panel {
+	background: #fff;
+	margin-bottom: 30px;
+	box-shadow: 0px 0px 20px #3333333d;
+	padding-bottom: 10px;
+
+	.default-panel-head {
+		background: #e3f2fa;
+		padding: 10px;
+		// margin-bottom: 10px;
+	}
+	.default-panel-sub-head {
+		background: #fff;
+		padding: 10px;
+	}
+	.dropdown {
+		float: right;
+
+		.btn-print {
+			// background: #9b9b9b;
+			margin: 0 10px 0 0;
+			color:#fff !important;
+		}
+		.btn-invoice {
+			// background: #423f73;
+			color: #fff !important;
+		}
+	}
+
+}
+
+/*Data table*/
+.data-table {
+	background: #fff;
+	font-size: 0.9rem;
+	margin-bottom: 0;
+
+	thead tr {
+		background: #9b9b9b;		
+
+		th {
+			border: none;
+			color: #fff;
+			font-weight: 400;
+			padding: 10px 5px;
+		}		
+	}
+	tbody tr td {
+		padding: 0 3px;
+	    padding-top: .6em;
+	    padding-bottom: .6em;
+	}
+	input[type="text"].fixed-input {
+		width: 70px;
+	}
+	.grey-bg {
+		background: #d7dae2;
+	}
+
+	select.fixed-select {
+		width: 85px;
+	}
+}
+
+
+/*Visits section (Left Column)*/
+
+.visits-head {
+	background: #e3f2fa;
+	padding: 5px 5px 0px 5px;
+
+	label {
+		font-weight: 500;
+		line-height: 34px;
+	}
+	a.btn {
+		float: right;
+	}
+}
+.visits-data td {
+	padding-left: 10px;
+}
+
+
+
+/*Diagnosis/Dispensed Section*/
+
+.diagnosis-dispensed-section {
+	background: #fff;
+	font-size: 14px;
+
+	.section-title {
+		padding-left: 15px;
+	}
+
+	thead th {
+		font-weight: 500;
+		padding: 10px 10px 5px 10px;
+	}
+}
+
+
+/*Charges Section*/
+
+.default-panel-body {
+	padding: 0px 10px 0px 10px;
+
+	.align-right{
+		text-align: right;
+		width: 17%;
+	}
+	.align-center{
+		text-align: center;
+	}
+
+	table { 
+		border-collapse: collapse; 
+		empty-cells: show; 
+	}
+
+	td { position: relative; }
+
+	tr.strikeout td:before {
+		content: " ";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		border-bottom: 1px solid #777;
+		width: 100%;
+	}
+
+	tr.strikeout td:after {
+	content: "\00B7";
+	font-size: 1px;
+	}
+
+	tr.disable{
+		background: #e3f2fa;
+	}
+}
+
+.default-case-footer {
+	background: #f5f7fa;
+	padding: 0px 10px 0px 10px;
+
+	.btn-save {
+		// background: #423f73;
+		color: #fff !important;
+		float: right;
+		margin: 10px 0;
+	}
+	.btn-close {
+		// background: #e64a79;
+		float: right;
+		color:#fff !important;
+		margin: 10px 10px 10px 0;
+	}
+}
+
+.default-panel-info table {
+	font-size: 14px;
+
+	th, td {
+		padding: 0;
+	}
+	th {
+		color: #39add7;
+		font-weight: 400;
+	}
+}
+
+
+/*Charges Breakdown section*/
+
+.sales-ref {
+	float: right;
+	input{
+		padding-left: 7px;
+		margin-left: 7px;
+	}
+}
+.all-border {
+	border: 1px solid #777;
+}
+.left-border {
+	border-left: 1px solid #777 !important; 
+}
+
+
+/*Packages*/
+
+.default-panel-head {
+	i.toggle-ico {
+		float: right;
+	}
+}
+
+
+/*Responsive*/
+
+@media screen and (max-width: 1024px) {
+
+	.btn {
+		font-size: 14px;
+	}
+	.back-btn {
+		width: 100%;
+	}
+	table.long-table {
+		display: block;
+		overflow-x: auto;
+	}
+
+}
+
+
+@media screen and (max-width: 480px) {
+
+	.total-due {
+		width: 100%;
+	}
+
+	.parameter {
+		font-size: 15px;
+    margin: 5px auto;
+	}
+
+	.diagnosis-dispensed-section {
+		margin-top: 1rem;
+	}
+	.semi-table {
+		display: block;
+		overflow-x: auto;
+	}
+
+}

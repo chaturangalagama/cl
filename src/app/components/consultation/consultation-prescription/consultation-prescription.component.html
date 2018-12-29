@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="card-header bg-white">
+    <div class="row">
+      <div class="col-md-2 text-indigo">Charge</div>
+      <div class="col-md-10 text-pink font-weight-bold">{{topDrugDescription.charge}}
+        <span *ngIf="topDrugDescription.charge">/</span> {{topDrugDescription.qty}} {{topDrugDescription.uom}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-indigo">SIG & Indication</div>
+      <div class="col-md-10 text-pink">{{topDrugDescription.dosageInstruction}} {{topDrugDescription.sig}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-indigo ">Cautionary</div>
+      <div class="col-md-10 text-pink">{{topDrugDescription.cautionary}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-indigo ">Remarks</div>
+      <div class="col-md-10 text-pink">{{topDrugDescription.remarks}}</div>
+    </div>
+
+  </div>
+  <div class="card-body px-0 pt-0">
+    <!-- TITLE -->
+    <div class="card-body">
+      <div class="row mb-0">
+        <div class="col-md-2">
+          <label class="mb-0">Drug Code</label>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-5">
+              <label class="mb-0">Dosage</label>
+            </div>
+            <div class="col-md-4">
+              <label class="mb-0">Instr</label>
+            </div>
+            <div class="col-md-3">
+              <label class="mb-0">Dur (Days)</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-1">
+          <label class="mb-0">Qty (UOM)</label>
+        </div>
+        <!-- <div class="col-md-1">
+                    <label class="mb-0">Plan</label>
+                </div> -->
+        <div class="col-md-1">
+          <label class="mb-0">Ori Total Price (w/GST)</label>
+        </div>
+        <div class="col-md-1">
+          <label class="mb-0">Batch No</label>
+        </div>
+        <div class="col-md-4">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <label class="mb-0">Expiry Date</label>
+            </div>
+            <div class="col-md-6 pl-2">
+              <label class="mb-0">Remarks</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <app-prescription-item *ngFor="let item of itemsFormArray.controls; let i=index" [index]="i" [prescriptionItem]="item" (onTopDrugDescriptionChanged)="onTopDrugDescriptionUpdated($event)"
+        (onDelete)="onDelete($event)"></app-prescription-item>
+      <br>
+      <!-- <div class="row justify-content-end px-3 "> -->
+      <button class="btn btn-sm btn-outline-pink float-right " (click)="addItem()">+ Add Prescription</button>
+      <!-- </div> -->
+    </div>
+
+  </div>
+
+  <!-- DISC -->
+
+  <!-- <div class="error " *ngIf="form.hasError( 'invalidDiscount') ">
+        Invalid discount amount, max discount allowed: {{form.value.maxDiscount}}
+    </div> -->
+
+</div>

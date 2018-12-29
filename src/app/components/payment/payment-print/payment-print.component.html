@@ -1,0 +1,166 @@
+<form [formGroup]="printFormGroup" novalidate>
+    <!-- {{chargeFormGroup.value |json }} -->
+    <div class="card">
+        <div class="card-header">
+            PRINT
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Drug Label</label>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintLabelClicked()" (keyup)="onBtnPrintLabelClicked()" [disabled]="consultationInfo ? consultationInfo.drugDispatch.dispatchDrugDetail.length <= 0 : false">
+                              Print Label (F7)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header p-0" *ngIf="printFormGroup.get('medicalCertificateArray').value.length"></div>
+        <div class="card-body" *ngIf="printFormGroup.get('medicalCertificateArray').value.length">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Medical Certificates</label>
+                </div>
+
+                <div class="col col-md-6">
+                    <form *ngFor="let form of printFormGroup.get('medicalCertificateArray')['controls']; let i = index;" [formGroup]="form" novalidate>
+                        <div class="row">
+                            <label class="mb-0">{{form.value.medicalCertificateStr}}</label>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintMCClicked()" (keyup)="onBtnPrintLabelClicked()">
+                              Print MC (F8)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header p-0" *ngIf="chargeFormGroup.get('referralFormGroup').get('referralFormArray').value.length"></div>
+        <div class="card-body" *ngIf="chargeFormGroup.get('referralFormGroup').get('referralFormArray').value.length">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Referral</label>
+                </div>
+
+                <div class="col col-md-6">
+                    <form *ngFor="let form of chargeFormGroup.get('referralFormGroup').get('referralFormArray').controls; let i = index;" [formGroup]="form" novalidate>
+                        <div class="row ml-0 mr-0">
+                            <label class="mb-0">{{form.value.str}}</label>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintLetterClicked()">
+                              Print Letter 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header p-0" *ngIf="printFormGroup.value.memo"></div>
+        <div class="card-body" *ngIf="printFormGroup.value.memo">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Memo</label>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="row" [innerHTML]="printFormGroup.value.memo">
+                        <!-- <label class="mb-0">{{printFormGroup.value.memo}}</label> -->
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintMemoClicked()">
+                              Print Memo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card-header p-0" *ngIf="printFormGroup.value.timeChitFrom && printFormGroup.value.timeChitTo"></div>
+    <div class="card-body" *ngIf="printFormGroup.value.timeChitFrom && printFormGroup.value.timeChitTo"> -->
+        <div class="card-header p-0"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0 mt-2 mr-2">Time Chit (Optional)</label>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="row">
+                        <label class="mb-0 m-2">TIME CHIT: FROM </label>
+                        <timepicker formControlName="timeChitFrom" [showMeridian]=false [showSpinners]=false></timepicker>
+                        <label class="mb-0 m-2">TO </label>
+                        <timepicker formControlName="timeChitTo" [showMeridian]=false [showSpinners]=false></timepicker>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-peacock-blue" (click)="onBtnPrintTimeChitClicked()">
+                              Print Time Chit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header p-0"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Patient Label</label>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintPatientLabelClicked()">
+                              Print Patient Label (F9)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header p-0" *ngIf="consultationInfo ? consultationInfo.immunisationGiven.immunisation.length > 0 : false" hidden=true></div>
+        <div class="card-body" *ngIf="consultationInfo ? consultationInfo.immunisationGiven.immunisation.length > 0 : false" hidden=true>
+            <div class="row">
+                <div class="col col-md-2">
+                    <label class="mb-0">Vaccination Certificates</label>
+                </div>
+
+                <div class="col">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-medium btn-blue" (click)="onBtnPrintVCClicked()">
+                              Print VC
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,165 @@
+<form [formGroup]="basicInfoFormGroup" novalidate>
+    <div class="card">
+        <div class="card-header">
+            BASIC INFORMATION
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Title
+            <font color="red">*</font>
+          </label>
+                </div>
+                <div class="col-md-9">
+                    <label>Patient Name
+            <font color="red">*</font>
+          </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <ng-select class="p-0 form-control form-control-sm custom-select  custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.titles.value" bindLabel="label" bindValue="value" placeholder="Select Title" formControlName="title">
+                    </ng-select>
+                    <errors [control]="basicInfoFormGroup.get('title')">
+                    </errors>
+                </div>
+                <div class="col-md-9">
+                    <input class="form-control form-control-sm" formControlName="name" />
+                    <errors [control]="basicInfoFormGroup.get('name')">
+                    </errors>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-6">
+                    <label>Date of Birth
+            <font color="red">*
+            </font>
+          </label>
+                </div>
+                <div class="col-md-6">
+                    <label>Gender
+            <font color="red">*
+            </font>
+          </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control form-control-sm datepicker" #dp="bsDatepicker" bsDatepicker formControlName="birth" [maxDate]="maxDate" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY',containerClass:
+                    'theme-blue'}">
+                    <errors [control]="basicInfoFormGroup.get('birth')">
+                    </errors>
+
+                </div>
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.genders.value" bindLabel="label" bindValue="value" placeholder="Select Gender" formControlName="gender">
+                    </ng-select>
+                    <errors [control]="basicInfoFormGroup.get('gender')">
+                    </errors>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-6">
+                    <label>Identification Type
+            <font color="red">*
+            </font>
+          </label>
+                </div>
+                <div class="col-md-6">
+                    <label>Identification Number
+            <font color="red">*
+            </font>
+          </label>
+                </div>
+            </div>
+            <div class="row" [formGroup]="basicInfoFormGroup.get('fullId')">
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [items]="basicInfoFormGroup.value.idTypes.value" bindLabel="label" bindValue="value" placeholder="Select Identification Type" formControlName="idType" value="idType" [clearable]=false>
+                    </ng-select>
+                    <!-- <div *ngIf="basicInfoFormGroup.get('fullId').get('idType').value==='PASSPORT'">
+                     <ng-select class="mt-3 p-0 form-control form-control-sm custom-select" [items]="basicInfoFormGroup.value.countries.value" bindLabel="label" bindValue="value" placeholder="Select Country" formControlName="selectedCountry" value="selectedCountry">
+                     </ng-select>
+                 </div> -->
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control form-control-sm " formControlName="id" />
+                    <errors [control]="basicInfoFormGroup.get('fullId').get('id')"></errors>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div *ngIf="basicInfoFormGroup.get('fullId').get('idType').value==='PASSPORT'">
+                        <ng-select class="mt-1 p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [items]="basicInfoFormGroup.value.countries.value" bindLabel="label" bindValue="value" placeholder="Select Country" formControlName="country" value="country"  [clearable]=false>
+                        </ng-select>
+                        <errors [control]="basicInfoFormGroup.get('country')"></errors>
+                  </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                     <div class="row">
+                        <div *ngFor="let input of basicInfoFormGroup.value.idTypes.value;">
+                            <div class="col-md-4 input-group-addon">
+                                <input type="radio" value="{{input.value}}" formControlName="idType">
+                                <span class="ml-1">{{input.label}}</span>
+                                <errors [control]="basicInfoFormGroup.get('idType')"></errors>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-select class="p-0 form-control form-control-sm custom-select" [clearable]=false [items]="basicInfoFormGroup.value.idTypes.value" bindLabel="label" bindValue="value" placeholder="Select Identification Type" formControlName="idType">
+                    </ng-select>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control form-control-sm" formControlName="id" />
+                    <errors [control]="basicInfoFormGroup.get('id')"></errors>
+                </div>
+            </div> -->
+            <!-- <div class="row pt-2" *ngIf="basicInfoFormGroup.value.idType === 'PASSPORT'">
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select" [clearable]=false [items]="basicInfoFormGroup.value.countries.value" bindLabel="label" bindValue="value" placeholder="Select Country" formControlName="country">
+                    </ng-select>
+                    <errors [control]="basicInfoFormGroup.get('country')"></errors>
+                </div>
+            </div> -->
+            <div class="row pt-2">
+                <div class="col-md-6">
+                    <label>Race</label>
+                </div>
+                <div class="col-md-6">
+                    <label>Nationality</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.races.value" bindLabel="label" bindValue="value" placeholder="Select Race" formControlName="race">
+                    </ng-select>
+                </div>
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.nationalities.value" bindLabel="label" bindValue="value" placeholder="Select Nationality" formControlName="nationality">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-6">
+                    <label>Marital Status
+            <font color="red">*</font>
+          </label>
+                </div>
+                <div class="col-md-6">
+                    <label>Language Spoken</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.maritalStatus.value" bindLabel="label" bindValue="value" placeholder="Select Marital Status" formControlName="status">
+                    </ng-select>
+                    <errors [control]="basicInfoFormGroup.get('status')"></errors>
+                </div>
+                <div class="col-md-6">
+                    <ng-select class="p-0 form-control form-control-sm custom-select custom-select-extra-medium-width" [clearable]=false [items]="basicInfoFormGroup.value.languages.value" bindLabel="label" bindValue="value" placeholder="Select Language" formControlName="language">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

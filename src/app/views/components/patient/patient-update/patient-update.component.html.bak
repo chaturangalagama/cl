@@ -1,0 +1,43 @@
+<!-- <div>
+    <h2>Patient Update</h2>
+    <app-dynamic-form [questions]="questions"></app-dynamic-form>
+</div> -->
+
+<div>
+    <h2>Patient Update</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="row">
+            <div *ngFor="let question of questions" [ngClass]="question.col">
+
+
+                <app-form-container class="form-group
+                    " [question]="question " [form]="form "></app-form-container>
+
+                <!-- <app-form-container *ngIf="question.controlType!='formgroup' ; else elseBlock " class="form-group
+                    " [question]="question " [form]="form "></app-form-container>
+                <ng-template #elseBlock> -->
+
+                <!-- <pre *ngFor="let subQuestion of question.formControls ">
+                        </pre> -->
+                <!-- <pre>{{question
+                        |json}}</pre>
+                    <pre>{{question.formControls[0]|json}}</pre>
+                    <app-form-container class="form-group
+                        " [question]="question.formControls[1]" [form]="form "></app-form-container>
+
+                </ng-template> -->
+            </div>
+        </div>
+        <div class="mt-2">
+            <button type="submit " [disabled]="!form.valid ">Save</button>
+        </div>
+    </form>
+
+    <!-- <pre>{{form.value|json}}</pre> -->
+
+    <!-- <div *ngIf="payLoad " class="form-row ">
+        <strong>Saved the following values</strong>
+        <br>{{payLoad}}
+    </div> -->
+
+</div>

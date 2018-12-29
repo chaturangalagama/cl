@@ -1,0 +1,79 @@
+<div class="row py-1" [class.container-duck-egg-blue-two]="isDiscountShown||isDiscountGiven" [formGroup]="immunizationItem">
+  <div class="col-md-7">
+    <div class="row">
+      <div class="col-md-4">
+        <ng-select class="p-0 form-control  form-control-sm custom-select custom-select-extra-width" bindLabel="name" bindValue="id"
+          [items]="vaccines" [clearable]=false (change)='onVaccineSelected($event)' placeholder="Select Vaccine" formControlName="vaccinationId">
+        </ng-select>
+      </div>
+      <div class="col-md-4">
+        <ng-select class="p-0 form-control form-control-sm  custom-select custom-select-extra-width" bindLabel="name" bindValue="doseId"
+          [items]="dose" [clearable]=false [virtualScroll]="true" (change)='onDoseSelected($event)' placeholder="Select Dose"
+          formControlName="doseId">
+        </ng-select>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="recommendedAge" [ngModelOptions]="{standalone: true}"
+          readonly/>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsConfig]="{containerClass:
+                            'theme-blue', dateInputFormat: 'DD-MM-YYYY'}" [minDate]="minDate" formControlName="nextDose">
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i class="icon-calendar"></i>
+            </span>
+          </div>
+        </div>
+        <errors [control]="immunizationItem.get('nextDose')"></errors>
+      </div>
+      <!-- <div class="col-md-3">
+        <ng-select type="text" class="p-0 form-control form-control-sm  custom-select" name="plan" bindLabel="name" [items]="plans"
+          [clearable]=false (change)="onPlanSelected($event)" [(ngModel)]="plan" [ngModelOptions]="{standalone: true}"></ng-select>
+      </div> -->
+      <div class="col-md-5">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="priceWithGST" [ngModelOptions]="{standalone: true}"
+              readonly/>
+          </div>
+          <div class="col-md-4 pl-2 align-self-center form-control-sm">
+            <div class="row no-gutters">
+              <div class="col-md-5">
+                <button class="btn-sm-sq btn-outline-gray-200" (click)="toggleDiscount()">
+                  <i [ngClass]="{'icon-up-open':isDiscountShown,'icon-down-open':!isDiscountShown}"></i>
+                </button>
+              </div>
+              <div class="col-md-5">
+                <!-- <button type="button" class="btn btn-sm" [popover]="popTemplate2" placement="top" [outsideClick]="true"> -->
+                <i class="icon-ellipsis-vert" [popover]="popTemplate2" placement="top" [outsideClick]="true"></i>
+                <!-- </button> -->
+              </div>
+            </div>
+            <ng-template #popTemplate2>
+              <div class="row ">
+                <button class="btn btn-link-grey p-1 " (click)="onbtnDeleteClicked()">
+                  <i class="icon-trash"></i>
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<hr class="row my-0" />
+<!-- <button class=" btn btn-outline-pink float-right " (click)="onBtnAddClicked() ">+</button> -->
+<app-discount [discountGroup]="immunizationItem.get('priceAdjustment')" [isDiscountShown]='isDiscountShown' [unitPrice]="price"
+  [maxDiscount]="maxDiscount" [totalPrice]='price' [quantity]=1></app-discount>
+<!-- <code>{{immunizationItem.value|json}}</code> -->

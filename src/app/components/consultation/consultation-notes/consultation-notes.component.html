@@ -1,0 +1,15 @@
+<div class="card mb-0">
+  <h6 class="card-header font-weight-semi-bold">CONSULTATION NOTES</h6>
+  <div class="card-body">
+    <label>Treatment Notes</label>
+    <font color="red">*</font>
+    <ckeditor [formControl]="consultationNotes" debounce="500" [config]="ckeConfig">
+      <p>Hello
+        <strong>world</strong>
+      </p>
+    </ckeditor>
+    <br>
+    <ng-select class="form-control  form-control-sm custom-select p-0" bindLabel="name" bindValue="id" groupBy="type" [items]="templates" [virtualScroll]="true"
+      appendTo="body" (change)="onTemplateChange($event)" [(ngModel)]="template" [ngModelOptions]="{standalone: true}" placeholder="Select Template"></ng-select>
+  </div>
+</div>

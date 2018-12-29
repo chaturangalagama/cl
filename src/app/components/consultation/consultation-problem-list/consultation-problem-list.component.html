@@ -1,0 +1,66 @@
+<!-- TOP SECTION -->
+<form novalidate [formGroup]="patientNotesForm">
+    <!-- Search Section -->
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label>Search</label>
+                <input type='text' class='form-control form-control-sm' formControlName='searchKeyword'>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label>Date Range</label>
+            <input class='form-control form-control-sm' #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="{rangeInputFormat: 'DD-MM-YYYY',containerClass:'theme-blue'}" placement="left" formControlName="range">
+        </div>
+    </div>
+
+    <!-- Add New Note Section -->
+    <div class="form-group border-top add-note-bg p-2 mb-0">
+        <!-- <button class='btn btn-dotted'>+ Add New Note</button> -->
+        <textarea class="form-control" formControlName='note'></textarea>
+
+    </div>
+    <div class="form-group border-bottom add-note-bg p-2 mb-0">
+        <button class='btn btn-sm btn-blue' (click)='onAddNote()'>+Add Note</button>
+    </div>
+
+    <div>
+        <ng-container *ngIf="patientNotesGrouped">
+            <!-- GROUP ICON -->
+            <ng-container *ngFor='let key of patientNotesGrouped; let id = index'>
+                <div class='timeline__container_group'>
+                    <div class='timeline__left'>
+                    </div>
+                    <div class='timeline__right'>
+                        <div class="timeline__group_dot">
+                            {{key.key}}
+                        </div>
+                        <p class='timeline__content'>
+                        </p>
+                        <div class='timeline__author'>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-container *ngFor='let item of key.value; let id = index'>
+                    <div class='timeline__container no-gutters'>
+                        <div class='timeline__left'>
+                            {{item.addedDateTime|displayDate}}
+                        </div>
+                        <div class='timeline__right'>
+                            <div class="timeline__dot">
+                            </div>
+                            <p class='timeline__content'>
+                                {{item.note}}
+                            </p>
+
+                            <div class='timeline__author'> Added by {{item.doctorName}}
+                            </div>
+                            <div class="timeline__separator"></div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</form>

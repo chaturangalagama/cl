@@ -1,0 +1,132 @@
+<div class="px-4">
+
+    <app-consultation-patient-alert-info [hidden]='hideAlerts' [patientInfo]='patientInfo' [alerts]="alerts" [medicalAlerts]="medicalAlerts"></app-consultation-patient-alert-info>
+    <div class=" row pl-0 pb-0">
+        <div class="col-md-6 pl-0 pt-2">
+            <label class="mb-0">PATIENT INFORMATION</label>
+        </div>
+    </div>
+
+    <div class="row justify-content-between pt-2">
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Patient No</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{patientNo}}</label>
+        </div>
+
+        <!-- <div class="form-group"> -->
+        <div class="form-group">
+            <label class='mb-0 patient-info-label__title'>Patient</label>
+            <ng-container *ngIf="patientNameRedirect">
+                <a [routerLink]="[getPatientDetailRoute()]" target="_blank" class="form-control border-0 p-0 patient-info-label__description"><span class="link">{{patientName}}</span></a>
+            </ng-container>
+            <ng-container *ngIf="!patientNameRedirect">
+                <span class="form-control border-0 p-0 patient-info-label__description">{{patientName}}</span>
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Age</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{age}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Sex</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{sex === 'FEMALE' ? 'F' : 'M'}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>DOB</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{dob}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Status</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{maritalStatus}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Occupation</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{occupation !=='' ? occupation: '-'}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Contact</label>
+            <label class="form-control border-0 p-0 patient-info-label__description">{{contactNo}}</label>
+        </div>
+
+        <div class="form-group">
+            <!-- <div class="col"> -->
+            <label class='mb-0 patient-info-label__title'>Address</label>
+            <!-- <label class="form-control border-0 p-0 m-0 patient-info-label__description">{{address1}} {{address2}} {{postal}}</label> -->
+            <label class="form-control border-0 p-0 m-0 patient-info-label__description">{{address1}}</label>
+            <label class="form-control border-0 p-0 m-0 patient-info-label__description address2">{{address2}} {{postal}}</label>
+            <!-- <label class="form-control border-0 p-0 m-0 patient-info-label__description">{{postal}}</label> -->
+        </div>
+
+        <div class="form-group">
+            <label class='mb-0 patient-info-label__title'>Medical Coverages</label>
+
+            <label *ngIf="priorityMedicalCoverage!==''" class="form-control border-0 p-0 patient-info-label__description col-10" (click)="showMedicalCoverages()">
+                  <span class="link">
+                      <!-- < class="col-9 link"> -->
+                    {{priorityMedicalCoverage}}
+                  </span>
+                </label>
+            <label *ngIf="priorityMedicalCoverage===''" class="form-control border-0 p-0 patient-info-label__description" style="color:darkgray;">
+                      <span><i>Unassigned</i></span>
+                </label>
+        </div>
+        <!-- <div class="form-group">
+          <button class="btn btn-outline-pink pb-2">Show Medical Coverages</button>
+      </div> -->
+    </div>
+
+
+
+
+
+    <!-- <div class="row text-header-consultation pl-0 font-weight-light">
+    <div class="col-md-2 pl-0">Patient No</div>
+    <div class="col-md-2">Patient</div>
+    <div class="col-md-1">Age</div>
+    <div class="col-md-2">Sex</div>
+    <div class="col-md-3 ">DOB</div>
+  </div>
+  <div class="row mb-3 pl-0 font-weight-bold">
+    <div class="col-md-2 pl-0 text-content-consultation">{{patientNo}}</div>
+    <div class="col-md-2 text-content-consultation ">{{patientName}}</div>
+    <div class="col-md-1 text-content-consultation ">{{age}}</div>
+    <div class="col-md-1 text-content-consultation ">{{ sex === 'FEMALE' ? 'F' : 'M' }}</div>
+    <div class="col-md-2 text-content-consultation ">{{dob}}</div>
+    <div class="col-md-3 text-content-consultation ">{{maritalStatus}}</div>
+  </div>
+  <div class="row text-header-consultation pl-0 font-weight-light">
+    <div class="col-md-2  pl-0">
+      NRIC
+    </div>
+    <div class="col-md-3">
+      Occupation
+    </div>
+    <div class="col-md-7">
+      Address
+    </div>
+  </div>
+  <div class="row text-content-consultation pt-1  pl-0">
+    <div class="col-md-2  pl-0">
+      {{nric}}
+    </div>
+    <div class="col-md-3 ">
+      {{occupation}}
+    </div>
+    <div class="col-md-7">
+      {{address}}
+    </div>
+  </div> -->
+</div>

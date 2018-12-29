@@ -1,0 +1,35 @@
+<!-- <pre>{{item.value|json}}</pre> -->
+<div [class]="getSubHeaderClass()">
+    <div class="col-4 text-queue-md">
+        <ng-container *ngIf="!item.get('medicalCoverageName')">
+            <input class="p-0 form-control form-control-sm" type="checkbox" name="plan" ng-true-value="true" [hidden]='true'> {{item.get('coverageSelected').get('name').value}}
+        </ng-container>
+        <ng-container *ngIf="item.get('medicalCoverageName')">
+            <input class="p-0 form-control form-control-sm" type="checkbox" name="plan" ng-true-value="true" [hidden]='true' readyonly> {{item.get('medicalCoverageName').value}}
+        </ng-container>
+    </div>
+    <div class="col-4 text-queue-md">
+        {{item.get('planSelected').get('name').value}}
+    </div>
+    <div class="col-3  text-queue-md">
+        {{item.get('patientCoverageId').value}}
+    </div>
+    <div class="col-1  text-queue-md">
+        <ng-template #popTemplate2>
+            <div class="row">
+                <button class="btn btn-link-grey p-1 " (click)="onbtnDeleteClicked() ">
+                    <i class="icon-trash "></i>
+                </button>
+            </div>
+        </ng-template>
+        <button type="button" class="btn p-0 menu-button" [popover]="popTemplate2" placement="top" [outsideClick]="true" *ngxPermissionsOnly="['ROLE_MEDICAL_MANAGE_POLICY_HOLDER']">
+            <i class="icon-ellipsis-vert"></i>
+        </button>
+        <button type="button" class="btn menu-button remarks p-0" (click)="isCollapsed = !isCollapsed">
+            <i [ngClass]="isCollapsed ? 'icon-down-open-big':'icon-up-open-big'"></i>
+        </button>
+    </div>
+</div>
+<div [collapse]="isCollapsed">
+    <!-- <app-medical-coverage-item-detail [inputFormGroup]='item' [inputIsFormGroup]=true></app-medical-coverage-item-detail> -->
+</div>

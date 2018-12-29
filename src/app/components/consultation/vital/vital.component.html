@@ -1,0 +1,19 @@
+<div class="card mb-0 h-100">
+    <div class="container py-2 card-body px-0" style="overflow-x: hidden">
+        <tabset class="borderless-tab" #vitalTabs>
+            <!-- <alert></alert> -->
+            <tab (select)="onSelect($event)">
+                <ng-template tabHeading>
+                    <i class="icon-search"></i>
+                    <span>VITAL SIGNS</span>
+                </ng-template>
+                <!-- <app-vital-sign [vitalFormGroup]="vitalForm"></app-vital-sign> -->
+                <app-vital-sign [vitalForm]='vitalForm'></app-vital-sign>
+            </tab>
+            <!-- <tab heading="VITAL TRENDS">-->
+            <tab heading="VITAL TRENDS" style="box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);" (select)="onSelect($event)">
+                <app-vital-trend [vitalTabs]='vitalTabs' [refresh]='trendRefresh'></app-vital-trend>
+            </tab>
+        </tabset>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    OVERALL CHARGE
+  </div>
+  <div class="card-body pt-2">
+    <div class="row pt-2 pb-2 mb-2 bg-grey-50">
+      <div class="col-4">
+        Item
+      </div>
+      <div class="offset-2 col-2">
+        Charge
+      </div>
+      <div class="col-2">
+        GST@{{(overallChargeFormGroup.value.gstValue * 100).toFixed(0)}}%
+      </div>
+      <div class="col-2">
+        Total
+      </div>
+    </div>
+    <div *ngFor="let overallCharge of overallCharges; let i = index;">
+      <div class="row mb-0" *ngIf="overallCharge.charge">
+        <div class="col-4">
+          <label class="mb-0">
+            {{ formatToTitleCase(overallCharge.paymentMode) }}
+          </label>
+        </div>
+        <div class="offset-2 col-2">
+          ${{overallCharge.charge.toFixed(2)}}
+        </div>
+        <div class="col-2">
+          ${{overallCharge.gst.toFixed(2)}}
+        </div>
+        <div class="col-2">
+          ${{(overallCharge.charge + overallCharge.gst).toFixed(2)}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

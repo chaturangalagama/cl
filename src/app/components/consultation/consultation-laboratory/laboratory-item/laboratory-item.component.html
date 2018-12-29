@@ -1,0 +1,61 @@
+<div class="row py-1" [class.container-duck-egg-blue-two]="isDiscountShown||isDiscountGiven" [formGroup]="laboratoryItem">
+  <div class="col-md-2">
+    <ng-select class='p-0 form-control form-control-sm  custom-select custom-select-extra-width' [(ngModel)]="category" [ngModelOptions]="{standalone: true}"
+      [clearable]="true" bindLabel="category" bindValue='category' [items]="categories" [virtualScroll]="true" (change)="onCategoriesSelected($event)"
+      (remove)="onCategoriesDeselected($event)">
+    </ng-select>
+  </div>
+  <div class="col-md-2">
+    <ng-select #testcode class='p-0 form-control form-control-sm  custom-select custom-select-extra-width' [clearable]="true"
+      bindLabel="code" bindValue='id' [items]="codes" [virtualScroll]="true" (change)="onCodeSelected($event)" (remove)="onCodesDeselected($event)"
+      formControlName="testId"></ng-select>
+  </div>
+  <div class="col-md-4">
+    <ng-select #servicename class='p-0 form-control form-control-sm  custom-select custom-select-extra-width' [(ngModel)]="testName"
+      [ngModelOptions]="{standalone: true}" [clearable]="true" bindLabel="name" bindValue='name' [items]="serviceNames" [virtualScroll]="true"
+      (change)="onServiceNameSelected($event)" (remove)="onServiceNameDeselected($event)">
+    </ng-select>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-5">
+        <ng-select #lab class='p-0 form-control  form-control-sm custom-select custom-select-extra-width' [items]="labs" bindLabel="name"
+          bindValue="name" [virtualScroll]="true" formControlName="suggestedLocation"></ng-select>
+        <errors [control]="laboratoryItem.get('suggestedLocation')"></errors>
+      </div>
+      <div class="col-md-5">
+        <input class="form-control form-control-sm" type="text" [(ngModel)]="priceWithGST" [ngModelOptions]="{standalone: true}"
+          readonly/>
+      </div>
+      <div class="col-md-2 pl-1 align-self-center form-control-sm">
+        <div class="row no-gutters">
+          <div class="col-md-5">
+            <button class="btn-sm-sq btn-outline-gray-200" (click)="toggleDiscount()">
+              <i [ngClass]="{'icon-up-open':isDiscountShown,'icon-down-open':!isDiscountShown}"></i>
+            </button>
+          </div>
+          <div class="col-md-5">
+            <!-- <button type="button" class="btn btn-sm" [popover]="popTemplate2" placement="top" [outsideClick]="true"> -->
+            <i class="icon-ellipsis-vert" [popover]="popTemplate2" placement="top" [outsideClick]="true"></i>
+            <!-- </button> -->
+          </div>
+        </div>
+
+        <ng-template #popTemplate2>
+          <div class="row ">
+            <button class="btn btn-link-grey p-1 " (click)="onbtnDeleteClicked()">
+              <i class="icon-trash "></i>
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<hr class="row my-0" />
+<!-- <button class=" btn btn-outline-pink float-right " (click)="onBtnAddClicked() ">+</button> -->
+<app-discount [discountGroup]="laboratoryItem.get('priceAdjustment')" [isDiscountShown]='isDiscountShown' [unitPrice]="price"
+  [maxDiscount]="maxDiscount" [totalPrice]='price' [quantity]=1></app-discount>
+<!-- <code>{{laboratoryItem.value | json}}</code> -->

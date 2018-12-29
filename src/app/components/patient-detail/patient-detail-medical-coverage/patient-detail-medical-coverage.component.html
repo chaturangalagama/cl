@@ -1,0 +1,128 @@
+<form [formGroup]="itemArray" novalidate>
+    <div class="card">
+
+        <div class="card-header">
+            Medical Coverage
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <!-- <code>{{plans.length}}===========</code> -->
+                    <!-- <div *ngFor="let key of medicalCoverages; let i = index;"> -->
+                    <!-- <div *ngIf="i==0"> -->
+                    <!-- <h1>Already Assigned Plans</h1> -->
+                    <!-- <div class="row modal-header1 align-middle">
+                        <div class="col-4">Company</div>
+                        <div class="col-4">Plan</div>
+                        <div class="col-3">Policy No</div>
+                        <div class="col-1"></div>
+                      </div> -->
+                    <!-- </div> -->
+                    <!-- <div *ngIf="medicalCoverageFormGroup.value.selectedCoverages && (medicalCoverageFormGroup.value.selectedCoverages[key].length != 0)"> -->
+                    <!-- <h2>--------------------{{ key }}----------------</h2> -->
+                    <div *ngFor="let item of plans; let j = index;">
+                        <!-- <code>{{plans|json}}</code> -->
+                        <div class="row modal-header1 align-middle">
+                            <div class="col-4">Company</div>
+                            <div class="col-4">Plan</div>
+                            <div class="col-3">Policy No</div>
+                            <div class="col-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{item?.name}}
+                            </div>
+                            <div class="col-4">
+                                {{item?.coveragePlan?.name}}
+                            </div>
+
+                            <div class="col-4 d-flex justify-content-between">
+                                {{item?.patientCoverageId}}
+                                <button [hidden]='true' type="button" class="btn menu-button remarks" [popover]="popTemplate2" placement="top" [outsideClick]="true">
+                  &#10247;
+                </button>
+
+                                <ng-template #popTemplate2>
+                                    <div class="row">
+                                        <button class="btn btn-link-grey p-1" (click)="onShowExtraClicked(j)">
+                      <i class="icon-info-circled"></i>
+                    </button>
+                                        <button class="btn btn-link-grey p-1" (click)="onBtnDeleteClicked(j)">
+                      <i class="icon-trash"></i>
+                    </button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+
+                        <div class="row modal-body1 align-middle">
+                            <div class="col-4">
+                                <div class="text-queue-s text-indigo text-header-sm mb-1 pl-1">Plan Details</div>
+                                <div class="plan-details pl-1">
+                                    <span>Cap Per Visit:</span> {{item?.coveragePlan?.capPerVisit?.limit | currency:'SGD':false}}
+                                    <br>
+                                    <span>Cap Per Year:</span> {{item?.coveragePlan?.capPerYear?.limit | currency:'SGD':false}}
+                                    <br>
+                                    <div *ngIf="item?.coveragePlan?.copayment?.value > 0">
+                                        <span>Co-Payment:</span> {{item?.coveragePlan?.copayment?.value > 0 ?"Yes" :"No"}}
+                                        <div *ngIf="item?.coveragePlan?.copayment?.paymentType=='DOLLAR'">
+                                            <span>Co-Payment Amount: </span> {{item?.coveragePlan?.copayment?.value | currency:'SGD':false}}
+                                        </div>
+                                        <div *ngIf="item.coveragePlan.copayment.paymentType=='PERCENTAGE'">
+                                            <span>Co-Payment Percentage: </span> {{item?.coveragePlan?.copayment?.value}}%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="text-queue-s text-indigo text-header-sm mb-1 pl-1">Company Details</div>
+                                <div class="plan-details pl-1">
+                                    <b>Contact Person:</b> {{item?.contacts[0].name}}
+                                    <br>
+                                    <b>Address:</b>{{item?.address?.address}}
+                                    <!-- {{item.coverageSelected.address.unit}} {{item.coverageSelected.address.street}} {{item.coverageSelected.address.postalCode}} -->
+                                    <br>
+                                    <b>Email:</b>{{item?.contacts[0].email}}
+                                    <!-- {{item.coverageSelected.contacts[0].email}} -->
+                                    <br>
+                                    <b>Telephone:</b> {{item?.contacts[0].directNumber}}
+                                    <!-- {{item.coverageSelected.contacts[0].directNumber}} -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row plan-remark-headers">
+                            <div class="col-4">
+                                <div class="text-queue-s text-indigo mb-1 pl-1">Clinic Remarks</div>
+                                <div class="plan-details pl-1"></div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-queue-s text-indigo mb-1 pl-1">Registration Remarks</div>
+                                <div class="plan-details pl-1"></div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-queue-s text-indigo mb-1 pl-1">Payment Remarks</div>
+                                <div class="plan-details pl-1"></div>
+                            </div>
+                        </div>
+
+                        <div class="row modal-body1 pl-1">
+                            <div class="col-4">{{item?.coveragePlan?.remarks}} </div>
+                            <div class="col-4">{{item?.policyHolder?.specialRemarks}} </div>
+                            <div class="col-4">{{item?.policyHolder?.status}} </div>
+                        </div>
+                        <br>
+                    </div>
+                    <!-- </div> -->
+                    <!-- <div class="btn-toolbar float-right pt-2" role="toolbar">-->
+
+                    <!-- </div> -->
+                    <div class="btn-toolbar float-right pt-2" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-pink" type="button" type="button" (click)="addMedicalCoverage($event)">+ Add Coverage</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

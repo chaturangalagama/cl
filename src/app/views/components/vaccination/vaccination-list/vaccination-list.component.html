@@ -1,0 +1,6 @@
+<div class="mt-3">
+    <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [rowHeight]="'auto'" [limit]="page.size" [rows]='rows' [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        (page)='setPage($event)'>
+    </ngx-datatable>
+</div>

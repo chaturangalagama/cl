@@ -1,0 +1,266 @@
+    <nav>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-1">
+              <a href="#" class="back-btn" (click)="backToAllCases()"><i class='icon-left-open'></i> back to all cases</a>
+          </div>
+          <div class="col-md-1 pl-3">
+            <div class="parameter">
+              <label>Case ID</label>
+              <p>{{case?.caseId}}</p>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="parameter">
+              <label>NRIC</label>
+              <p>{{case?.patientNRIC}}</p> 
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="parameter">
+              <label>Patient</label>
+              <p>{{case?.patientName}}</p>
+            </div>
+          </div>
+          <div class="col-md-5 pr-0">
+            <div class="total-due" [ngClass]="outstanding < 0 ? 'total-due-red' : 'total-due-green'"><label>Total Due</label><span>${{outstanding}}</span></div>
+          </div>      
+        </div>
+      </div>
+    </nav>
+
+    <!-- <div class="container-fluid" style="height:95vh"> -->
+    <div style="height:95vh">
+
+    <!-- Content goes here -->
+    <div class="content-wraper">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-2">
+
+            <div class="visits-section">
+              <div class="visits-head">
+                <label>Visits</label>
+                <a class="btn btn-blue"  *ngIf="case?.status=='OPEN'" (click)="attachNewVisit()">Attach New Visit</a>
+              </div>
+
+              <div class="visits-data">
+                <table class="table table-hover data-table">
+                    <thead>
+                      <tr>
+                      <th>Date</th>
+                      <th>Clinic</th>
+                      <th></th>
+                      </tr>
+                    </thead>                    
+                    <tbody>
+                      <tr *ngFor="let row of visits" (click)="onClickVisitRow(row.visitId)">
+                        <td>{{row?.visitDate}}</td>
+                        <td>{{row?.clinicName}}</td>
+                        <td><div class="icon-trash " *ngIf="case?.status=='OPEN'" (click)="onDeleteVisit(row.visitId)"></div></td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-10">
+            
+            <!-- Diagnosis/Dispensed Section -->
+            <div class="diagnosis-dispensed-section">
+              <h4 class="section-title">Diagnosis/dispensed</h4>
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="width: 20%">ICD CODE</th>
+                    <th style="width: 35%">Description</th>
+                    <th style="width: 45%">&nbsp;</th>
+                  </tr>              
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of visit?.diagnosis">
+                    <td>{{row?.icd10Code}}</td>
+                    <td>{{row?.icd10Term}}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="width: 20%">Item Code</th>
+                    <th style="width: 35%">Charged Items</th>
+                    <th style="width: 20%">Qty</th>
+                    <th style="width: 25%">UOM</th>
+                  </tr>              
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of visit?.drugDispatch">  
+                    <td>{{row?.itemCode}}</td>
+                    <td>{{row?.itemName}}</td>
+                    <td>{{row?.quantity}}</td>
+                    <td>{{row?.salesUom}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <!-- Charges Section -->
+            <div class="default-panel">
+              <!-- Default panel head -->
+              <div class="default-panel-head">
+                <h4 class="section-title">Charges</h4> 
+                <div class="dropdown">
+                  <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                    <button class="btn btn-invoice btn-brand-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle *ngIf="case?.status=='OPEN'">
+                        <i class="icon-invoice"></i>Invoice</button>
+                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item" (click)="createNewInvoice()">Create new invoice</button>
+                      <!-- <button class="dropdown-item">Delete this invoice</button> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown">
+                  <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                    <button class="btn btn-print btn-ash dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle *ngIf="case?.status=='OPEN'">
+                        <i class="icon-print"></i>Print Invoice</button>
+                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item">Print General invoice</button>
+                      <button class="dropdown-item">Print Breakdown invoice</button>
+                      <button class="dropdown-item">Print invoice for cash</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+
+              <app-case-charge class="mt-0" [itemsFormArray]="caseChargeForm?.get('chargeItem')?.get('chargeItemDetails')" [caseStatus]='this.case.status'></app-case-charge>
+              
+              <!-- Charges Breakdown section -->
+              <div class="default-panel-sub-head">
+                <h3 class="section-title">Charges breakdown</h3>
+                <div class="sales-ref">
+                  <label>Sales Ref No.</label>
+                  <input type="text" name="" [disabled]="case?.status=='CLOSED'" [(ngModel)]="case?.salesOrder.salesRefNo">
+                </div>
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="default-panel-body">
+                <table class="table data-table table-borderless all-border">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th class="align-right">Charges</th>
+                      <th class="align-right">GST</th>
+                      <th class="align-right">Payable</th>
+                      <th class="align-right">Coverage</th>
+                      <th style="width:5%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <ng-container *ngIf="deletedInvoices.length != 0" >
+                        <tr [class.strikeout]="isOdd" [class.disable]="isEven" *ngFor="let deletedInvoice of deletedInvoices; let isOdd=odd; let isEven=even">
+                            <td>{{deletedInvoice?.paymentMode}}</td>
+                            <td class="align-right">${{deletedInvoice?.payableAmount-deletedInvoice?.includedTaxAmount}}</td>
+                            <td class="align-right">${{deletedInvoice?.includedTaxAmount}}</td>
+                            <td class="align-right">${{deletedInvoice?.payableAmount}}</td>
+                            <td class="align-right">-</td>
+                            <td style="width:5%" [class.icon-trash]="isEven" class="align-center"></td>
+                        </tr>
+                      </ng-container>
+                      <tr *ngFor="let invoice of invoices; let i=index;">
+                        <td>{{invoice["paymentMode"]}}</td>
+                        <td class="align-right">${{invoice["payableAmount"]-invoice["includedTaxAmount"]}}</td>
+                        <td class="align-right">${{invoice["includedTaxAmount"]}}</td>
+                        <td class="align-right">${{invoice["payableAmount"]}}</td>
+                        <td class="align-right">-</td>
+                        <td style="width:5%" class="icon-trash align-center" *ngIf="invoice['paymentMode']=='CASH' && case?.status=='OPEN'" (click)="onDeletePayment(i)"></td>
+                        <td style="width:5%" *ngIf="invoice['paymentMode']=='CASH' && case?.status=='CLOSED'"></td>
+                      </tr>
+                    <tr class="all-border">
+                      <td>Summary</td>
+                      <td class="align-right">${{chargesSummary?.chargesTotal}}</td>
+                      <td class="align-right">${{chargesSummary?.gSTTotal}}</td>
+                      <td class="left-border align-right">${{chargesSummary?.payableTotal}}</td>
+                      <td class="align-right">${{chargesSummary?.coverageTotal}}</td>
+                      <td style="width:5%"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">Total Bill Amount</td>
+                      <td colspan="3" class="left-border align-center">{{case?.salesOrder?.totalPrice}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>            
+
+            <!-- Packages -->
+            <div class="default-panel">      
+              <!-- Default panel head -->
+              <div class="default-panel-head">
+                <h4 class="section-title">Packages</h4>
+                <i class="far fa-minus-square toggle-ico"></i>
+                <div class="clearfix"></div>                
+              </div>
+              <div class="default-panel-body">
+                <table class="table data-table semi-table">
+                  <thead>
+                    <tr>
+                      <th>Item Code</th>
+                      <th>Item Name</th>
+                      <th class="align-right">Prices ($)</th>
+                      <th>Date</th>
+                      <th>Use By</th>
+                      <th class="align-center">Completed</th>
+                    </tr>
+                  </thead>                  
+                  <tbody> 
+                    <tr>
+                      <td>{{case?.purchasedPackage?.itemRefId}}</td>
+                      <td>{{case?.purchasedPackage?.itemRefId}}</td>
+                      <td class="align-right">{{case?.purchasedPackage?.purchasePrice}}</td>
+                      <td>{{purchasedPackageDates?.purchaseDate}}</td>
+                      <td>{{purchasedPackageDates?.expireDate}}</td>
+                      <td class="align-center">{{packageCompletedItems}}/{{case?.purchasedPackage?.packageQty}}</td>
+                    </tr>
+                    <tr *ngFor="let item of case?.purchasedPackage?.dispatches; let i = index;">
+                      <td></td>
+                      <td>- {{item?.itemName}}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td class="align-center"><input type="checkbox" name="" [checked]="item.utilize" [disabled]='utilizeDisable[i]' *ngIf="case?.status=='OPEN' || item.utilize" 
+                        (change)="checkCheckBoxvalue($event.target.checked ? 'T':'F', i)"></td>
+                    </tr>                
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Close and Save Cases -->
+            <div class="row">
+              <div class="col-md-12 mb-4">
+                <div class="btn-toolbar float-right" role="toolbar">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-large btn-brand-primary" (click)="saveCase()" *ngIf="case?.status=='OPEN'">Save Case</button>
+                  </div>
+                </div>
+                <div class="btn-toolbar float-right mr-2" role="toolbar">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-large btn-pink" (click)="closeCase()" *ngIf="case?.status=='OPEN'">Close Case</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>  
+</div>

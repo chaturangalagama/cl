@@ -1,0 +1,21 @@
+.ngx-datatable.bootstrap.custom-datatable .datatable-header {
+    height: $input-height-sm !important;
+}
+
+.ngx-datatable.bootstrap.custom-datatable .datatable-header .datatable-header-cell {
+    @extend .px-2;
+    @extend .py-1;
+    font-size: 0.8125rem;
+    vertical-align: middle;
+}
+
+.ngx-datatable.bootstrap.custom-datatable .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label>div {
+    overflow: hidden;
+    // overflow: initial;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {
+    overflow: initial !important;
+}

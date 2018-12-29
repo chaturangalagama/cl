@@ -1,0 +1,167 @@
+<!-- CONTENT -->
+<!-- <alert></alert>  -->
+<app-simple-error [errors]='errors'></app-simple-error>
+<div appTouchedObject (onTopDrugDescriptionChanged)="updateTopDescription()" [drugData]="topDrugDescription" class="row py-1"
+  [class.container-duck-egg-blue-two]="isDiscountShown" [formGroup]="prescriptionItem">
+
+  <!-- Drug Code -->
+  <div class="col-md-2">
+    <div class="row no-gutters">
+      <div class="col-md-10">
+        <ng-select name="drug-code" class='p-0 form-control form-control-sm  custom-select custom-select-extra-large-width' [items]="drugs"
+          bindLabel='name' bindValue='id' (change)="onDrugSelect($event)" formControlName="drugId" [addTag]="false" [loading]="loading"
+          [virtualScroll]="true" [typeahead]="codesTypeahead" [clearable]=false>
+
+          <ng-template ng-header-tmp>
+            <div class="row">
+              <div class="col-md-2 font-weight-semi-bold">Code</div>
+              <div class="col-md-6 font-weight-semi-bold">Name</div>
+              <div class="col-md-4 font-weight-semi-bold">Brand</div>
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <div class="row">
+              <div class="col-md-2">{{item.code}}</div>
+              <div class="col-md-6">{{item.name}}</div>
+              <div class="col-md-4">{{item.brand}}</div>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="col-md-1 pr-1">
+        <button class='btn btn-sm btn-outline-gray-200' (click)='onSearchDrug()'>
+          <i class="icon-search"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="prescriptionItem.get('inventoryInvalid')&&prescriptionItem.get('inventoryInvalid').value" style="color: red; font-size: 80%;">{{prescriptionItem.get('inventoryInvalid').value}}</div>
+  </div>
+  <!-- End - Drug Code -->
+  <div class="col-md-3">
+    <div class="row">
+      <!-- Dosage Instruction-->
+      <div class="col-md-5" [formGroup]="prescriptionItem.get('dosageInstruction')">
+        <div class=" input-group input-group-sm">
+          <ng-select name="instruction" class='p-0 form-control form-control-sm  custom-select custom-select-extra-width' bindLabel='code'
+            bindValue='code' [items]="dosageInstructions" [clearable]=false [virtualScroll]="true" (change)="onDosageInstructionSelect($event)"
+            formControlName='code'>
+            <ng-template ng-header-tmp>
+              <div class="row">
+                <div class="col-md-2 font-weight-semi-bold">Code</div>
+                <div class="col-md-6 font-weight-semi-bold">Instruction</div>
+              </div>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <div class="row">
+                <div class="col-md-2">{{item.code}}</div>
+                <div class="col-md-6">{{item.instruct}}</div>
+              </div>
+            </ng-template>
+          </ng-select>
+          <div class="input-group-append">
+            <input name="dosageInstruction" class="form-control form-control-sm" type="number" align="right" min="0" max="100" [formControl]="prescriptionItem.get('dose').get('quantity')"
+              step="{{dosageMin}}">
+          </div>
+          <errors [control]="prescriptionItem.get('dose').get('quantity')"></errors>
+        </div>
+
+      </div>
+      <errors [control]="prescriptionItem.get('dosageInstruction').get('quantity')"></errors>
+      <!-- Instruction -->
+      <div class="col-md-4" [formGroup]="prescriptionItem.get('instruction')">
+        <!-- <input class="form-control form-control-sm" type="text" [formControl]="instruction"> -->
+        <ng-select name="instruction" class='p-0 form-control form-control-sm  custom-select custom-select-extra-width' bindLabel='code'
+          bindValue='code' [items]="instructions" [clearable]=false [virtualScroll]="true" (change)="onInstructionSelect($event)"
+          formControlName='code'>
+          <ng-template ng-header-tmp>
+            <div class="row">
+              <div class="col-md-2 font-weight-semi-bold">Code</div>
+              <div class="col-md-6 font-weight-semi-bold">Instruction</div>
+
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <div class="row">
+              <div class="col-md-2">{{item.code}}</div>
+              <div class="col-md-6">{{item.instruct}}</div>
+
+            </div>
+          </ng-template>
+        </ng-select>
+        <errors [control]="prescriptionItem.get('instruction').get('code')"></errors>
+      </div>
+      <!-- Duration -->
+      <div class="col-md-3">
+        <input name="drugDuration" class="form-control form-control-sm" type="number" min="0" max="100" formControlName="duration">
+      </div>
+    </div>
+  </div>
+
+  <!-- Quantity -->
+  <div class="col-md-1">
+    <div class=" input-group input-group-sm">
+      <input name="quantity" class="form-control form-control-sm" type="number" min="0" max="100" formControlName="quantity">
+      <div class="input-group-append">
+        <span class="input-group-text" style="font-size:11px; padding:0 2px" id="dosage-addon">{{prescriptionItem.get('dose').get('uom').value}}</span>
+      </div>
+    </div>
+    <errors [control]="prescriptionItem.get('quantity')"></errors>
+  </div>
+  <!-- Medical Coverage Plan -->
+  <!-- <div class="col-md-1">
+    <ng-select name="plan" class='p-0 form-control form-control-sm  custom-select' bindLabel='name' [items]="plans" (change)="onPlanSelect($event)"
+      [clearable]=false [(ngModel)]="plan" [ngModelOptions]="{standalone: true}"></ng-select>
+  </div> -->
+  <!-- Total Price -->
+  <div class="col-md-1">
+    <input class="form-control form-control-sm" type="text" step='0.01' name="totalPrice" [(ngModel)]="totalPrice" [ngModelOptions]="{standalone: true}"
+      readonly>
+  </div>
+  <!-- Batch No -->
+  <div class="col-md-1">
+    <input class="form-control form-control-sm" type="text" formControlName="batchNumber" readonly>
+  </div>
+  <!-- Expiry Date -->
+  <div class="col-md-4">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <input type="text" class="form-control form-control-sm" formControlName="expiryDate" readonly>
+      </div>
+      <div class="col-md-6 pl-2">
+        <input class="form-control form-control-sm" type="text" formControlName="remark">
+      </div>
+      <div class="col-md-2 pl-2 align-self-center">
+        <div class="row no-gutters">
+          <div class="col-md-5">
+            <button class="btn-sm-sq btn-outline-gray-200" (click)="toggleDiscount()">
+              <i [ngClass]="{'icon-up-open':isDiscountShown,'icon-down-open':!isDiscountShown}"></i>
+            </button>
+          </div>
+          <div class="col-md-5">
+            <!-- <a href="" class="" [popover]="popTemplate2" placement="left" [outsideClick]="true"> -->
+            <i class="icon-ellipsis-vert" [popover]="popTemplate2" placement="top" [outsideClick]="true"></i>
+            <!-- </a> -->
+          </div>
+        </div>
+
+        <ng-template #popTemplate2>
+          <div class="row ">
+            <button class="btn btn-link-grey p-1 " (click)="deletePressed()">
+              <i class="icon-trash"></i>
+            </button>
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<hr class="row my-0" />
+<!-- <button class=" btn btn-outline-pink float-right " (click)="onBtnAddClicked() ">+</button> -->
+<app-discount [discountGroup]="prescriptionItem.get('priceAdjustment')" [isDiscountShown]='isDiscountShown' [unitPrice]="price"
+  [maxDiscount]="maxDiscount" [totalPrice]='totalPrice' [quantity]="prescriptionItem.get('quantity').value" [stock]="prescriptionItem.get('stock').value"
+  [isStockShown]='true'></app-discount>
+<!-- <code>{{prescriptionItem.value|json}}</code> -->
+<!-- </div>
+</div> -->

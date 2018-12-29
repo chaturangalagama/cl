@@ -1,0 +1,100 @@
+<ng-container *ngIf="patientVisitHistory && patientVisitHistory.consultation">
+  <accordion class="w-100" [closeOthers]="true">
+    <accordion-group [(isOpen)]="isAccordionOpen">
+
+      <div accordion-heading class="clearfix consultation-container">
+        <div class="consultation-container__title">
+          <i class="icon-size black mr-1" [ngClass]="isAccordionOpen ? 'icon-down-open':'icon-right-open'"></i>
+          <ng-container *ngIf="patientVisitHistory.diagnoses && patientVisitHistory.diagnoses.length>0; else noDiagnosis">
+            <span style="flex:2">{{patientVisitHistory.diagnoses[0].icd10Term}}</span>
+          </ng-container>
+          <ng-template #noDiagnosis>
+            <span style="flex:2"> </span>
+          </ng-template>
+
+          <!-- <span>{{patientVisitHistory.consultation.consultationStartTime | displayDate}}</span> -->
+
+          <span>{{patientVisitHistory.consultation.consultationStartTime}}</span>
+        </div>
+      </div>
+
+      <div class="row consultation-container__title-duck-egg-blue">
+        <div class="col-lg-9">
+          Prescription
+        </div>
+        <div class="col-lg-3">
+          Qty
+        </div>
+      </div>
+      <div *ngIf="patientVisitHistory.consultation.drugDispatch">
+        <div class="row" *ngFor="let prescription of patientVisitHistory.consultation.drugDispatch.dispatchDrugDetail">
+          <div class="col-lg-9">
+            {{prescription.name}}
+
+            <i class="icon-info-circled" [popover]="popTemplate" placement="top" [outsideClick]="true"></i>
+
+            <ng-template #popTemplate>
+              <div>{{prescription.remark}}</div>
+            </ng-template>
+
+          </div>
+          <div class="col-lg-3">
+            {{prescription.dose.quantity}} {{prescription.dose.uom}}
+          </div>
+        </div>
+
+
+        <hr class="consultation-history-br">
+        <div class="text-right mb-3" *ngIf="showCopyPrescription()">
+          <button class="btn btn-sm btn-small btn-blue" [disabled]="patientVisitHistory.consultation.drugDispatch.dispatchDrugDetail.length<1"
+            (click)='copyConsultationPrescription()'>Copy Prescription</button>
+        </div>
+      </div>
+      <!-- <div class="row consultation-title-container-duck-egg-blue">
+                <div class="col-lg-10">
+                    Prescription(Dispensed)
+                </div>
+                <div class="col-lg-2">
+                    Qty
+                </div>
+            </div> -->
+
+      <!-- <div class="row" *ngFor="let prescription of patientVisitHistory.billPayment.drugs">
+                <div class="col-lg-10">
+                    {{prescription.prescription}}
+                </div>
+                <div class="col-lg-2">
+                    {{prescription.quantity}}
+                </div>
+            </div>
+
+            <hr class="consultation-history-br">
+            <div class="text-right mb-3" [hidden]='true'>
+                <button class=" btn btn-small btn-blue">Copy Prescription</button>
+            </div> -->
+
+      <div class="row consultation-container__title-duck-egg-blue">
+        <div class="col-lg-4 ">
+          Treatment Notes</div>
+        <div class="col-lg-8 text-right">
+
+        </div>
+      </div>
+
+      <div class="col" [innerHTML]="patientVisitHistory.consultation.consultationNotes">
+
+      </div>
+
+      <div class="row consultation-container__title-duck-egg-blue">
+        <div class="col ">
+          Documents </div>
+      </div>
+      <ng-container *ngIf="patientVisitHistory.fileMetaData">
+        <div class="" *ngFor="let document of patientVisitHistory.fileMetaData">
+          <i class="icon-clipboard"></i>
+          <span (click)="onDownloadNewDocument(patientVisitHistory.patientVisitId,document.fileId,document.fileName)" class="mb-0 link">{{document.fileName}}</span>
+        </div>
+      </ng-container>
+    </accordion-group>
+  </accordion>
+</ng-container>

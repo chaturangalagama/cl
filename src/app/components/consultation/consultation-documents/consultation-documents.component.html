@@ -1,0 +1,74 @@
+<!-- TOP SECTION -->
+<form novalidate [formGroup]='consultationDocument'>
+  <!-- Search Section -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="mb-0">Search</label>
+        <input type='text' class='form-control form-control-sm' formControlName='searchKey'>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <label class="mb-0">Date Range</label>
+      <input class='form-control form-control-sm' #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="{rangeInputFormat: 'DD-MM-YYYY',containerClass:'theme-blue'}"
+        placement="left" formControlName="dateRange">
+    </div>
+    <!-- <div class="col-sm-2">
+      <br>
+      <button class="btn btn-sm btn-blue btn-block">Search</button>
+    </div> -->
+  </div>
+
+  <!-- Main Content -->
+  <div class="h-100" style="overflow-x:hidden; overflow-y:auto">
+    <ngx-datatable #table class='bootstrap custom-datatable expandable' [headerHeight]="25" [footerHeight]="25" [rowHeight]="30"
+      [rows]='flatDocuments' [limit]="pageLimit" [columnMode]="'flex'">
+      <!-- <ngx-datatable-column name="Title" prop="number" minWidth="inherit" [flexGrow]=1>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div>{{ row.number }}</div>
+        </ng-template>
+      </ngx-datatable-column> -->
+
+      <ngx-datatable-column name="Date" [canAutoResize]=true minWidth="inherit" [flexGrow]=1>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div>
+            {{row.date}}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Document" prop="visitno" minWidth="inherit" [canAutoResize]=true [flexGrow]=2>
+
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div [title]="row.fileName" class='link pr-2' (click)="onDownloadNewDocument(row.fileId,row.fileName, row.listType, row.downloadId)"
+            *ngxPermissionsOnly="['ROLE_FILE_DOWNLOAD']">{{ row.fileName }}</div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Description" [canAutoResize]=true minWidth="inherit" [flexGrow]=2>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div>
+            {{row.description}}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Attached To" prop="nric" minWidth="inherit" [canAutoResize]=true [flexGrow]=1>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div>{{ row.nric }}</div>
+        </ng-template>
+      </ngx-datatable-column> -->
+      <ngx-datatable-column name="Type" minWidth="inherit" [flexGrow]=1 headerClass="headerAlignCenter" [canAutoResize]=true>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div class="centerContent">{{ row.type }}</div>
+          <!-- <div class="centerContent">{{ row.time }}</div> -->
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Size(KB)" minWidth="inherit" [flexGrow]=1 [canAutoResize]=true>
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div class="">{{ row.size }}</div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+
+
+</form>

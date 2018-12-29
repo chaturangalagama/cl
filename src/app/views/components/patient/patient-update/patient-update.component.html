@@ -1,0 +1,402 @@
+<div class="row form-main mr-0">
+  <div class="col-9  mt-2 mb-2">
+    <h5>Patient Information</h5>
+    <alert></alert>
+
+    <form novalidate [formGroup]="updatePatientForm" (ngSubmit)="onSubmit()">
+
+
+      <div class="row">
+        <!-- PATIENT ID -->
+        <div class="form-group col-6" formGroupName="userId">
+          <label class="mb-0">Patient ID</label>
+          <input class=" form-control form-control-sm" formControlName="number" type="text" placeholder="NRIC/MIC/Passport " required
+            [ngClass]="{
+                        'is-invalid': number.invalid && (number.dirty || number.touched)
+                  }" />
+          <errors [control]="number"></errors>
+        </div>
+
+        <!-- ID TYPE -->
+        <div class="form-group col-6" formGroupName="userId">
+          <label class="mb-0">ID Type</label>
+          <div>
+            <input type="radio" class="radio" id="idTypeIC" name="idType" value="NRIC" formControlName="idType" required>
+            <label for="idTypeIC" class="mr-2">NRIC</label>
+
+            <input type="radio" class="radio" id="idTypeFIN" value="FIN" name="idType" formControlName="idType">
+            <label for="idTypeFIN" class="mr-2">FIN</label>
+
+            <input type="radio" class="radio" id="idTypeMIC" name="idType" value="MIC" formControlName="idType">
+            <label for="idTypeMIC" class="mr-2">MIC</label>
+
+            <input type="radio" class="radio" id="idTypePassport" name="idType" value="PASSPORT" formControlName="idType">
+            <label for="idTypePassport" class="mr-2">PASSPORT</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAME -->
+      <div class="row ">
+        <div class="form-group col-6">
+          <label class="mb-0">Name</label>
+          <input class="form-control form-control-sm" formControlName="name" type="text" placeholder="Patient Name" required [ngClass]="{
+                        'is-invalid': name.invalid && (name.dirty || name.touched)
+                  }" />
+          <errors [control]="name"></errors>
+        </div>
+
+        <!-- GENDER -->
+        <div class="form-group col-6">
+          <label class="mb-0">Gender</label>
+          <div class="border px-2 py-1 rounded">
+            <input type="radio" class="radio" id="gender" name="gender" value="MALE" formControlName="gender" required>
+            <label for="gender" class="mr-3 mb-0">Male</label>
+
+            <input type="radio" class="radio" id="gender" value="FEMALE" name="gender" formControlName="gender">
+            <label for="gender" class="mr-3 mb-0">Female</label>
+
+            <input type="radio" class="radio" id="gender" name="gender" value="OTHER" formControlName="gender">
+            <label for="gender" class="mr-3 mb-0">Other</label>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="form-group col-md-6 col-sm-12">
+          <!-- CONTACT -->
+          <label class="mb-0">Primary Contact</label>
+          <div class="input-group" formGroupName="contactNumber">
+
+            <input class="input-group-addon col-3" formControlName="countryCode" type="number" min="1" placeholder="65" required/>
+            <input class="input-group-addon col-9" type="number" placeholder="Phone Number " formControlName="number" />
+
+          </div>
+
+        </div>
+        <!-- DOB -->
+        <div class="form-group col-6">
+          <label class="mb-0">DOB</label>
+          <input type="text" class="form-control form-control-sm" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker
+            [bsConfig]="bsConfig" formControlName="dob" required/>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <!-- EMAIL -->
+        <div class="form-group col-6">
+          <label class="mb-0">Email</label>
+          <input class="form-control form-control-sm " formControlName="emailAddress" type="text " placeholder="Email " required [ngClass]="{
+                                'is-invalid': emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)
+                          }" />
+          <errors [control]="emailAddress"></errors>
+        </div>
+
+        <!-- STATUS -->
+        <div class="form-group col-6">
+          <label class="mb-0">Status</label>
+          <select class="form-control form-control-sm " formControlName="status" required [ngClass]="{
+                        'is-invalid': status.invalid && (status.dirty || status.touched)
+                  }">
+            <option>ACTIVE</option>
+            <option>INACTIVE</option>
+            <option>BLOCKED</option>
+          </select>
+          <errors [control]="status"></errors>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="from-group col-6">
+          <label class="mb-0">Occupation</label>
+          <input class="form-control form-control-sm " formControlName="occupation" type="text" placeholder="Occupation " />
+
+        </div>
+        <div class="from-group col-6"></div>
+      </div>
+
+
+      <!-- ADDRESS -->
+      <div>
+        <div class="row ">
+          <div class="form-group col" formGroupName="address">
+            <label class="mb-0">Address</label>
+            <input class="form-control form-control-sm" formControlName="address" type="text" placeholder="Address " required [ngClass]="{
+                            'is-invalid': address.invalid && (address.dirty || address.touched)
+                      }" />
+            <errors [control]="address"></errors>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="from-group col-6" formGroupName="address">
+            <label class="mb-0">Country</label>
+            <input class="form-control form-control-sm" formControlName="country" type="text" placeholder="Country " required [ngClass]="{
+                            'is-invalid': country.invalid && (country.dirty || country.touched)
+                      }" />
+            <errors [control]="country"></errors>
+          </div>
+          <div class="form-group col-6" formGroupName="address">
+            <label class="mb-0">Postal Code</label>
+            <input class="form-control form-control-sm" formControlName="postalCode" type="text" placeholder="Postal Code " required
+              [ngClass]="{
+                            'is-invalid': postalCode.invalid && (postalCode.dirty || postalCode.touched)
+                      }" />
+            <errors [control]="postalCode"></errors>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- REMARKS -->
+      <div class="row ">
+        <div class="form-group col ">
+          <label class="mb-0">Remarks</label>
+          <textarea class="form-control form-control-sm " formControlName="remarks" rows="3" placeholder="Remarks... "></textarea>
+        </div>
+      </div>
+
+      <hr>
+      <h5>Vaccination</h5>
+      <div class="form-group">
+        <Button class="btn btn-outline-pink" type="button" (click)="addVaccination($event)">+ Add Vaccination</Button>
+      </div>
+      <hr>
+
+      <div *ngIf="vaccinationData">
+        <div class="row ">
+          <label class="mb-0">{{vaccinationData.name}}</label>
+        </div>
+        <div class="row">
+          <div class="form-group col ">
+            <label class="mb-0">Given date</label>
+            <input required type="text" class="form-control form-control-sm" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker"
+              bsDatepicker [(bsValue)]="givenDate" [bsConfig]="bsConfig" required/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col ">
+            <label class="mb-0">Place given</label>
+            <input class="form-control form-control-sm " [(ngModel)]="placeGiven" name="placeGiven" type="text
+                                " placeholder="Place Given " [ngModelOptions]="{standalone: true}" required/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col ">
+            <label class="mb-0">Vaccine</label>
+            <input class="form-control form-control-sm " [(ngModel)]="scheduledVaccinationData.name" name="scheduledVaccinationData.name "
+              [ngModelOptions]="{standalone: true}" type="text" placeholder="Vaccine " required (focus)="selectScheduledVaccine($event)"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col ">
+            <label class="mb-0">Schedule date</label>
+            <input required type="text" class="form-control form-control-sm" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker"
+              bsDatepicker [(bsValue)]="vaccinationSchedules.scheduledDate" [bsConfig]="bsConfig" required/>
+          </div>
+        </div>
+      </div>
+
+
+      <h5>Medical Coverage</h5>
+      <div class="form-group">
+        <Button class="btn btn-outline-pink" type="button" (click)="addMedicalCoverage($event)">+ Add Medical Coverage</Button>
+      </div>
+      <hr>
+
+
+
+      <div *ngIf="coverageData">
+        <div class="form-group col ">
+          <label>Medical Coverage Name : {{coverageData.name}}</label>
+        </div>
+
+
+        <div class="form-group col ">
+          <label class="mb-0">Place given</label>
+          <input class="form-control form-control-sm " [(ngModel)]="patientCoverageId" name="patientCoverageId" type="text" placeholder="Patient coverage ID"
+            [ngModelOptions]="{standalone: true}" required/>
+        </div>
+
+
+        <div class="form-group col ">
+          <label class="mb-0">Place given</label>
+          <input class="form-control form-control-sm " [(ngModel)]="specialRemarks" name="specialRemarks" type="text" placeholder="Special remarks"
+            [ngModelOptions]="{standalone: true}" required/>
+        </div>
+
+
+        <div class="form-group col ">
+          <label class="mb-0">Start date</label>
+          <input required type="text" class="form-control form-control-sm" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker"
+            bsDatepicker [(bsValue)]="startDate" [bsConfig]="bsConfig" required/>
+        </div>
+
+        <div class="form-group col ">
+          <label class="mb-0">End date</label>
+          <input required type="text" class="form-control form-control-sm" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker"
+            bsDatepicker [(bsValue)]="endDate" [bsConfig]="bsConfig" required/>
+        </div>
+      </div>
+
+      <!-- Emergency Contact -->
+      <h5>Emergency Contact</h5>
+      <div class="row">
+        <!-- Name -->
+        <div class="form-group col-6">
+          <label class="mb-0">Name</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Name" required />
+
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+          <!-- EMERGENCY CONTACT -->
+          <label class="mb-0">Emergency Contact</label>
+          <div class="input-group" formGroupName="emergencyContactNumber">
+            <input class="input-group-addon col-3" [formControl]="emergencyContactNumber.controls.countryCode" type="number" min="1"
+              placeholder="65" required/>
+            <input class="input-group-addon col-9" [formControl]="emergencyContactNumber.controls.number" type="number" placeholder="Phone Number "
+              required/>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Relationship -->
+        <div class="form-group col-6">
+          <label class="mb-0">Relationship</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Relationship" required />
+
+        </div>
+      </div>
+
+      <!-- Other Patient Information -->
+      <hr>
+      <h5>Other Patient Information</h5>
+      <div class="row">
+        <!-- Nationality -->
+        <div class="form-group col-6">
+          <label class="mb-0">Nationality</label>
+          <input class="form-control form-control-sm " formControlName="nationality" name="nationality" type="text " placeholder="Nationality"
+            [ngClass]="{
+                                                     'is-invalid': nationality.invalid && (nationality.dirty || nationality.touched)
+                                               }" />
+          <errors [control]="nationality"></errors>
+
+        </div>
+
+        <!-- Race -->
+        <div class="form-group col-6">
+          <label class="mb-0">Race</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Race" required />
+        </div>
+
+
+      </div>
+      <div class="row">
+        <!-- Marital Status -->
+        <div class="form-group col-6">
+          <label class="mb-0">Marital Status</label>
+          <select class="form-control form-control-sm " formControlName="maritalStatus" type="text" [ngClass]="{
+                        'is-invalid': maritalStatus.invalid && (maritalStatus.dirty || maritalStatus.touched)
+                  }" name="maritalStatus" required>
+            <option>SINGLE</option>
+            <option>MARRIED</option>
+            <option>DIVORCED</option>
+          </select>
+          <errors [control]="maritalStatus"></errors>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+          <!-- Language Spoken -->
+          <label class="mb-0">Language Spoken</label>
+          <input class="form-control form-control-sm" placeholder="Language Spoken" required/>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Language Read -->
+        <div class="form-group col-6">
+          <label class="mb-0">Language Read</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Language Read" required />
+        </div>
+
+
+      </div>
+
+
+      <!-- Patient Company Information -->
+      <hr>
+      <h5>Patient Company Information</h5>
+      <div class="row">
+        <!-- Name -->
+        <div class="form-group col-6">
+          <label class="mb-0">Company</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Company" required />
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+          <!-- Company Address -->
+          <label class="mb-0">Company Address</label>
+          <input class="form-control form-control-sm" placeholder="Company Address" required/>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Company Postal -->
+        <div class="form-group col-6">
+          <label class="mb-0">Company Postal</label>
+          <input class="form-control form-control-sm" type="text" placeholder="Company Postal" required />
+
+        </div>
+
+
+      </div>
+
+      <div class="form-group mb-0 float-right">
+        <Button class="btn btn-pink" type="submit" [disabled]="updatePatientForm.invalid">Submit</Button>
+      </div>
+
+
+
+
+
+    </form>
+
+    <!-- <pre>{{updatePatientForm.value | json}}</pre> -->
+
+  </div>
+  <div class="col-3 bg-grey m-0 ">
+    <div class="card mt-4 mx-4 border-0">
+
+      <div class="card-body text-center">
+        <p class="card-title text-indigo">QUEUE NO</p>
+        <p class="card-text text-pink text-queue-lg">0006</p>
+        <p class="text-queue-xs">Estimated Waiting Time</p>
+        <p class="text-queue-sm">20 minutes</p>
+        <hr class="separator">
+
+        <div class="mx-auto">
+          <div class="text-left w-50 mx-auto">
+            <p class="text-queue-sm text-indigo">PRIORITY</p>
+            <input type="radio" class="radio" id="queue" name="queue" value="Normal">
+            <label for="queue" class="mr-3 mb-0">Normal</label>
+            <br>
+            <input type="radio" class="radio" id="queue" name="queue" value="Urgent">
+            <label for="queue" class="mr-3 mb-0">Urgent</label>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

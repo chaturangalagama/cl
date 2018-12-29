@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <p class="font-weight-semi-bold align-middle mb-0">MEDICAL SERVICE</p>
+    <!-- <button class="btn btn-sm btn-outline-pink" (click)="onBtnAddClicked()">+</button> -->
+  </div>
+
+  <div class="card-body">
+
+    <div class="container-fluid px-0">
+      <!-- TITLE -->
+
+      <div class="row mb-0">
+        <!-- <div class="col-md-2">
+                    <label class="font-weight-semi-bold">Service Code</label>
+                </div> -->
+        <div class="col-md-2">
+          <label class="font-weight-semi-bold">Category</label>
+        </div>
+        <div class="col-md-4">
+          <label class="font-weight-semi-bold">Service Name</label>
+        </div>
+        <div class="col-md-2">
+          <label class="font-weight-semi-bold">Price(w/GST)</label>
+        </div>
+        <div class="col-md-4 pr-0">
+          <label class="font-weight-semi-bold">Remarks</label>
+        </div>
+      </div>
+
+      <app-medical-service-item *ngFor="let item of itemsFormArray.controls; let i=index" [medicalServiceItem]="item" [index]='i'
+        (onDelete)="onDelete($event)"></app-medical-service-item>
+      <br>
+      <button class="btn btn-sm btn-outline-pink float-right" (click)="onBtnAddClicked()">+ Add</button>
+    </div>
+
+
+
+
+  </div>

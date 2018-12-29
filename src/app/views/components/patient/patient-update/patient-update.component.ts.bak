@@ -1,0 +1,94 @@
+import { PatientSearchResponse } from './../../../../objects/response/PatientSearchResponse';
+import { FormBase } from './../../../../model/FormBase';
+import { FormControlService } from './../../../../services/form-control.service';
+import { FormGroup } from '@angular/forms';
+
+import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core/src/metadata/directives';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PatientUpdateFormService } from '../../../../services/patient-update-form.service';
+import { PatientService } from '../../../../services/patient.service';
+import { UserRegistration } from '../../../../objects/UserRegistration';
+
+@Component({
+    selector: 'app-patient-update',
+    templateUrl: './patient-update.component.html',
+    styleUrls: ['./patient-update.component.scss'],
+    providers: [FormControlService]
+})
+export class PatientUpdateComponent implements OnInit {
+    questions: any[];
+    value: string;
+    type: string;
+
+    form: FormGroup;
+    payLoad = '';
+    patientData: PatientSearchResponse;
+
+    constructor(
+        private qcs: FormControlService,
+        service: PatientUpdateFormService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private patientService: PatientService
+    ) {
+        this.questions = service.getQuestions();
+
+        console.log('MY QUESTION ', this.questions);
+        this.route.params.subscribe(params => {
+            console.log(params);
+            // if (params['id']) {
+            //     this.id = +params['id'];
+            //     console.log('has params');
+            // }
+            if (params['value']) {
+                this.value = params['value'];
+                console.log('has params');
+            }
+            if (params['type']) {
+                this.type = params['type'];
+                console.log('has params');
+            }
+        });
+    }
+
+    ngOnInit() {
+        this.form = this.qcs.toFormGroup(this.questions);
+        console.log('MY FROM ', this.form);
+        // this.patientService.searchBy('userid', 'PASSPORT:P000000010').subscribe(
+        this.patientService.searchBy(this.type, this.value).subscribe(
+            res => {
+                if (res) {
+                    console.log('RES ', res);
+                    this.patientData = res.payload;
+                    this.form.patchValue(res.payload);
+                }
+            },
+            err => {
+                console.log('Error occured', err.error.message);
+
+                console.log(err.headers.get('Content-Type'));
+            }
+        );
+    }
+
+    onSubmit() {
+        this.payLoad = JSON.stringify(this.form.value);
+        // const userRegistration = new UserRegistration(this.form.value);
+        this.patientService
+            .update(this.patientData.id, this.form.value)
+            .subscribe(
+                res => {
+                    if (res) {
+                        console.log('RES ', res);
+                        // this.form.patchValue(res.payload);
+                    }
+                },
+                err => {
+                    console.log('Error occured', err.error.message);
+
+                    console.log(err.headers.get('Content-Type'));
+                }
+            );
+    }
+}

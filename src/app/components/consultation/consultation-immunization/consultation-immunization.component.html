@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header font-weight-semi-bold">
+    IMMUNIZATION
+  </div>
+  <div class="card-body">
+    <!-- TITLE -->
+    <div class="container-fluid px-0">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="mb-0">Vaccine</label>
+            </div>
+            <div class="col-md-4">
+              <label class="mb-0">Dosage</label>
+            </div>
+            <div class="col-md-4">
+              <label class="mb-0">Description</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label class="mb-0">Recommended Age</label>
+            </div>
+            <div class="col-md-4">
+              <label class="mb-0">Next Dose</label>
+            </div>
+            <!-- <div class="col-md-3">
+              <label class="mb-0">Plan</label>
+            </div> -->
+            <div class="col-md-4">
+              <label>Ori Total Price(w/GST)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-immunization-item *ngFor="let item of itemsFormArray.controls; let i=index" [immunizationItem]="item" [index]='i' (onDelete)="onDelete($event)"></app-immunization-item>
+      <br>
+      <div class="clearfix">
+        <button class="btn btn-sm btn-outline-pink float-right" (click)="onBtnAddClicked()">+ Add</button>
+      </div>
+
+    </div>
+  </div>
+</div>

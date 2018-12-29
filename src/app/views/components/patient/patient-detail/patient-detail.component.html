@@ -1,0 +1,74 @@
+<alert></alert>
+<app-patient-detail-header [headerFormGroup]="patientDetailFormGroup.get('headerFormGroup')">
+</app-patient-detail-header>
+<app-patient-detail-tag [patientInfo]="patientInfo" [alertFormGroup]="patientDetailFormGroup.get('alertFormGroup')" [medicalAlertFormGroup]="patientDetailFormGroup.get('medicalAlertFormGroup')" *ngxPermissionsOnly="['ROLE_PATIENT_MEDICAL_ALERTS']">
+</app-patient-detail-tag>
+<tabset #tabs>
+    <tab heading="PATIENT DETAIL">
+        <div class="container-fluid h-100">
+            <div class="col-md-6 pl-2 pb-2">
+                <label> (Fields marked as
+                   <font color="red">*</font> are mandatory)
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-patient-detail-basic-info [basicInfoFormGroup]="patientDetailFormGroup.get('basicInfoFormGroup')">
+                    </app-patient-detail-basic-info>
+                </div>
+                <div class="col-md-6">
+                    <app-patient-detail-contact-detail [contactDetailFormGroup]="patientDetailFormGroup.get('contactDetailFormGroup')">
+                    </app-patient-detail-contact-detail>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-patient-detail-company-info [companyInfoFormGroup]="patientDetailFormGroup.get('companyInfoFormGroup')">
+                    </app-patient-detail-company-info>
+                </div>
+                <div class="col-md-6">
+                    <app-patient-detail-emergency-contact [emergencyContactFormGroup]="patientDetailFormGroup.get('emergencyContactFormGroup')">
+                    </app-patient-detail-emergency-contact>
+                </div>
+            </div>
+            <app-patient-detail-document [formGroup]="patientDetailFormGroup.get('documentsFormGroup')" *ngxPermissionsOnly="['ROLE_FILE_MANAGEMENT']">
+            </app-patient-detail-document>
+            <app-patient-detail-vaccination [patientInfo]="patientInfo" [historyInfo]="histories"></app-patient-detail-vaccination>
+            <app-patient-detail-print [patientInfo]="patientInfo">
+            </app-patient-detail-print>
+            <app-medical-coverage [hasAdd]='false' [hasDelete]='true' [popUpAddCoverage]='true' [patientCoverages]="patientDetailFormGroup.get('selectedPlans')" [policyHolderInfo]='policyHolderInfo' *ngxPermissionsOnly="['ROLE_MEDICAL_COVERAGE_MANAGEMENT']"></app-medical-coverage>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-toolbar float-right" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-large btn-pink" (click)="onBtnSaveClicked()" (keyup)="onKeyUp($event) " [disabled]="patientDetailFormGroup.status!=='VALID'">SAVE & NEXT (F4)</button>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar float-right mr-2" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <!-- <button class="btn btn-large btn-blue" (click)="onBtnAddToRegistryClicked()">ADD TO REGISTRY</button> -->
+                            <button class="btn btn-large btn-blue" (click)="showAddConfirmation()" [disabled]='patientDetailFormGroup.dirty'>ADD TO REGISTRY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="PATIENT HISTORY" (select)="initHistoryList()" *ngxPermissionsOnly="['ROLE_PATIENT_VISIT_HISTORY']">
+        <div class="container-fluid h-100">
+            <div *ngIf="patientDetailFormGroup.value.isHistoryList">
+                <app-patient-history-filter [formGroup]="patientDetailFormGroup.get('historyFilterFormGroup')">
+                </app-patient-history-filter>
+                <app-patient-history-list [formGroup]="patientDetailFormGroup.get('historyListFormGroup')">
+                </app-patient-history-list>
+            </div>
+            <div *ngIf="!patientDetailFormGroup.value.isHistoryList">
+                <app-patient-history-detail [formGroup]="patientDetailFormGroup.get('historyDetailFormGroup')" [hotKeySaveOnHistoryDetailTab]='hotKeySaveOnHistoryDetailTab'>
+                </app-patient-history-detail>
+            </div>
+        </div>
+    </tab>
+</tabset>
+<br>
+<br>
+<br>

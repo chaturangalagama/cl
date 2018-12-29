@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <p class="font-weight-semi-bold">LABORATORY</p>
+    <div class="ml-auto d-flex justify-content-between">
+      <!-- <button name="btnAdd" [hidden]="!expanded" class="btn btn-sm btn-outline-pink" (click)="onBtnAddClicked()">+</button> -->
+      <!-- <div class="" (click)="expanded = !expanded">
+        <i [ngClass]="expanded ? 'icon-up-open' : 'icon-down-open'"></i>
+      </div> -->
+    </div>
+
+  </div>
+
+  <div [collapse]="!expanded" class="card-body">
+    <div>
+      <div class="row mb-0">
+        <div class="col-md-2">
+          <label>Category</label>
+        </div>
+        <div class="col-md-2">
+          <label>Test Code</label>
+        </div>
+        <div class="col-md-4">
+          <label>Test Name</label>
+        </div>
+        <div class="row col-md-4">
+
+          <div class="col-md-5">
+            <label>Lab</label>
+          </div>
+          <!-- <div class="col-md-4">
+            <label>Plan</label>
+          </div> -->
+          <div class="col-md-7">
+            <label>Price(w/GST)</label>
+          </div>
+
+        </div>
+      </div>
+
+      <app-laboratory-item *ngFor="let item of itemsFormArray.controls; let i=index" [laboratoryItem]="item" [index]='i' (onDelete)="onDelete($event)"></app-laboratory-item>
+
+    </div>
+
+    <br>
+
+    <button name="btnAdd" class="btn btn-sm btn-outline-pink float-right" (click)="onBtnAddClicked()">+ Add</button>
+  </div>
+
+  <!-- </div> -->
+</div>

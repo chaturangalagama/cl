@@ -1,0 +1,23 @@
+<div class="card">
+
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{title}}</h4>
+    </div>
+</div>
+<!-- <code>{{medicalCoverageSummaryFormGroup.value|json}}</code> -->
+<div class="container-fluid h-100">
+    <div class="row p-2 pb-3">
+        <div class="col-12">
+            <app-patient-add-consultation [hidden]="hideConsultationInfo()" [consultationInfoFormGroup]="consultationFormGroup"></app-patient-add-consultation>
+            <app-medical-coverage [hasUpdatePriority]='true' [patientCoverages]="medicalCoverageSummaryFormGroup.get('patientCoverages')" [selectedCoverages]="selectedCoverages" *ngxPermissionsOnly="['ROLE_MEDICAL_COVERAGE_MANAGEMENT']"></app-medical-coverage>
+            <!-- <app-add-queue-medical-coverage [forDisplayOnly]="type ==='DISPLAY_MEDICAL_COVERAGE'" [hasUpdatePriority]=true [medicalCoverageFormGroup]="medicalCoverageSummaryFormGroup" [selectedCoverages]="selectedCoverages"></app-add-queue-medical-coverage> -->
+            <div class="btn-toolbar float-right" role="toolbar">
+                <!-- <code>{{ medicalCoverageSummaryFormGroup.value|json }}</code> -->
+                <div class="btn-group" role="group">
+                    <button [hidden]="type ==='DISPLAY_MEDICAL_COVERAGE'" class="btn btn-large btn-pink" (click)="onBtnSaveClicked($event)" [disabled]="!consultationFormGroup.valid">Confirm & Register</button>
+                    <button *ngIf="type ==='DISPLAY_MEDICAL_COVERAGE'" class="btn btn-large btn-pink" (click)="onBtnCloseClicked($event)" [disabled]="!consultationFormGroup.valid">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

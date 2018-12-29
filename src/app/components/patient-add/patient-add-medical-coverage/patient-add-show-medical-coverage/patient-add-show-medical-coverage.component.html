@@ -1,0 +1,32 @@
+<form novalidate>
+    <!-- TODO: set formGroup value to name of key in patient service -->
+    <div class="card">
+        <div class="card-header">
+            Medical Coverage
+        </div>
+        <!-- <pre>{{selectedPlans.value|json}}</pre> -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div *ngIf="selectedPlans">
+                        <div class="row plan-remark-headers align-middle">
+                            <div class="col-4">Company</div>
+                            <div class="col-4  align-middle">Plan</div>
+                            <div class="col-4">Coverage No</div>
+                        </div>
+                        <div *ngFor="let item of selectedPlans.controls; let i = index;">
+                            <!-- <app-medical-coverage-item *ngIf="item.value.planId!=''" [hasUpdatePriority]=false [inputIsFormGroup]=true [itemFormGroup]='item' [index]=i (onDelete)="onbtnDeleteClicked(i,$event)" [addState]=false [hasDelete]=true [forDisplayOnly]=true [isChecked]=true>
+                            </app-medical-coverage-item> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid px-0">
+                <!-- <div class=""> -->
+                <button class="btn btn-outline-pink float-right mt-3" type="button" (click)="addMedicalCoverage($event)" *ngxPermissionsOnly="['ROLE_MEDICAL_MANAGE_POLICY_HOLDER']">+ Add Coverage</button>
+                <!-- </div> -->
+            </div>
+        </div>
+
+    </div>
+</form>

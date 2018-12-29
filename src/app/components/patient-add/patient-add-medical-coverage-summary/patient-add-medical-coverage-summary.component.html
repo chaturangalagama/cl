@@ -1,0 +1,33 @@
+<!-- <form [formGroup]="medicalCoverageFormGroup" novalidate> -->
+<div class="card">
+    <div class="card-header">
+        Medical Coverage
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <!-- <code>{{ selectedPlans.value|json}}</code> -->
+            <div class="col-12">
+                <!-- <pre> Attached : {{ attachedMedicalCoverages.value | json }}</pre> -->
+                <div *ngFor="let item of medicalCoverageFormArray.controls; let i = index;">
+                    <!-- <pre>{{ attachedMedicalCoverages.value | json }}</pre> -->
+                    <div *ngIf="i==0">
+                        <div class="row plan-remark-headers align-middle">
+                            <div *ngIf="!forDisplayOnly" class="col-1">Priority</div>
+                            <div class="col">Company</div>
+                            <div class="col">Plan</div>
+                            <div class="col" style="border-right-style:none">Coverage No</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+                    <!-- <app-patient-add-medical-coverage-summary-item [attachedMedicalCoverages]="attachedMedicalCoverages" [medicalCoverageItem]='item' [index]='i' [itemChecked]="isPlanSelected(item)" [isCompatible]="checkAgainstSelectedCoverages(item.value.coverageType , item,i)"
+                        [selectedIndex]="getSelectedIndex(item)"></app-patient-add-medical-coverage-summary-item> -->
+                    <!-- [isCompatible]="!checkAgainstSelectedCoverages(medicalCoverageType , item,i)"
+                    [index]=i [isHead]="(j===0 && i===0) ? true : false" [selectedIndex]="getSelectedIndex(item)" -->
+                    <!-- <app-medical-coverage-item [patientCoverageItem]="item" [attachedMedicalCoverages]="attachedMedicalCoverages" [isCompatible]="checkAgainstSelectedCoverages(item.value.coverageType , item,i)" [selectedIndex]="getSelectedIndex(item)" [hasUpdatePriority]=true
+                        [canEdit]=false></app-medical-coverage-item> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </form> -->

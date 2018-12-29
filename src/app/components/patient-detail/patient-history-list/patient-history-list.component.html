@@ -1,0 +1,55 @@
+<form [formGroup]="formGroup" novalidate>
+    <div class="row bg-grey-400 pt-2 pb-2 mb-2">
+        <div class="col-md-2">
+            Date
+        </div>
+        <div class="col-md-2">
+            Diagnosis
+        </div>
+        <div class="col-md-2">
+            Attending Dr. / Clinic
+        </div>
+        <div class="col-md-2">
+            Amt Charged
+        </div>
+        <div class="col-md-2">
+            Status
+        </div>
+        <div class="col-md-2">
+            Action
+        </div>
+    </div>
+    <form *ngFor="let form of formGroup.get('formArray')['controls']; let i = index;" [formGroup]="form" novalidate>
+        <div class="row pt-2 pb-2 mb-2">
+            <div class="col-md-2">
+                {{form.value.date}}
+            </div>
+            <div class="col-md-2">
+                <div *ngFor="let diagnosisCode of form.value.diagnosis.value;">
+                    <div class="row ml-0 mr-0">
+                        {{diagnosisCode}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                {{form.value.doctor}} / {{form.value.clinic}}
+            </div>
+            <div class="col-md-2">
+                ${{form.value.amount.toFixed(2)}}
+            </div>
+            <div class="col-md-2">
+                <div *ngIf="form.value.status.paid">Paid: ${{form.value.status.paid.toFixed(2)}}</div>
+                <div *ngIf="form.value.status.outstanding" style="color: red">Outstanding: ${{form.value.status.outstanding.toFixed(2)}}</div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-action p-0 btn-blue rounded" (click)="onBtnDetailClicked(i)">
+                             <i class="icon-search i-dot"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</form>
